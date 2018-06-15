@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#00486e</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorText">#000000</color>
+    <color name="colorTipps">#8705ccea</color>
+    <color name="colorInputBG">#f8f9f9</color>
+    <color name="gutentag">#e2ed04</color>
+</resources>
