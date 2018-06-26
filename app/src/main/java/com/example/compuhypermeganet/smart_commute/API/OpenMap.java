@@ -31,7 +31,7 @@ public class OpenMap {
     public static void setDurationDistance(double x1, double y1, double x2, double y2, BikeTrip bt) {
 
         try {
-            URL request = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + x1 + "," + y1 + "&destinations=" + x2 + "," + y2 + "&key=AIzaSyCR-i30y12Khnd2i37hslr4fkU3HaWDMT4");
+            URL request = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + x1 + "," + y1 + "&mode=bicycling&destinations=" + x2 + "," + y2 + "&key=AIzaSyCR-i30y12Khnd2i37hslr4fkU3HaWDMT4");
             System.out.println("Calling: " + request);
             HttpURLConnection conn = (HttpURLConnection) request.openConnection();
             conn.setRequestMethod("GET");
