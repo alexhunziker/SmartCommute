@@ -8,14 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.compuhypermeganet.smart_commute.API.rmv;
 
+import org.w3c.dom.Text;
+
 import java.util.Date;
 
 public class Main_location extends AppCompatActivity {
-    private EditText departure, destination;
+    private TextView departure, destination;
     private Button search_button;
     private String depart_id, dest_id;
     private String depart_result, dest_result;
@@ -25,8 +28,8 @@ public class Main_location extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_location);
         search_button = (Button) findViewById(R.id.search_button);
-        departure = (EditText) findViewById(R.id.departure);
-        destination = (EditText) findViewById(R.id.destination);
+        departure = (TextView) findViewById(R.id.departure);
+        destination = (TextView) findViewById(R.id.destination);
         departure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +56,7 @@ public class Main_location extends AppCompatActivity {
                 if (depart_id.isEmpty() || dest_id.isEmpty()) {
                     Toast.makeText(Main_location.this, "please enter your departure and destination", Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(Main_location.this, navigation.class);
+                    Intent intent = new Intent(Main_location.this, MainActivity.class);
                     intent.putExtra("depart_id", depart_id);
                     intent.putExtra("dest_id", dest_id);
                     startActivity(intent);

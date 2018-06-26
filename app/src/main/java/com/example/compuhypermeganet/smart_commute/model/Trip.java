@@ -87,6 +87,7 @@ public class Trip {
             Leg leg;
             NodeList legs;
             String type;
+
             for (int i = 0; i < trips.getLength(); i++) {
                 trip_raw = (Element) trips.item(i);
                 legs = trip_raw.getElementsByTagName("Leg");
@@ -99,7 +100,7 @@ public class Trip {
                     leg = new Leg(origin_leg, destination_leg);
                     leg.setArrival(destination_raw.getAttribute("time"));
                     leg.setDeparture(origin_raw.getAttribute("time"));
-                    Log.d("datetime", leg.getArrival().toString());
+//                    Log.d("datetime", leg.getArrival().toString());
                     type = leg_raw.getAttribute("type");
                     if (!type.equals("JNY")) {
                         leg.setMode(type.trim());
@@ -115,7 +116,10 @@ public class Trip {
                     if (!leg.getMode().equals("KISS")) {
                         this.addLeg(leg);
                     }
+
                 }
+                if(!this.legs.isEmpty())break;
+
             }
         } catch (Exception e) {
             e.printStackTrace();

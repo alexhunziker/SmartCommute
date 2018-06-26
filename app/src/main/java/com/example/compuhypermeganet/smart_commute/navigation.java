@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.example.compuhypermeganet.smart_commute.API.Flinkster;
@@ -44,6 +45,7 @@ public class navigation extends AppCompatActivity {
         protected String doInBackground(String... params) {
             from = new Station(params[0]);
             to = new Station(params[1]);
+            Log.d("destination_id_navi", to.getId() );
             trip = new Trip(from, to, new Date());
             return "";
         }

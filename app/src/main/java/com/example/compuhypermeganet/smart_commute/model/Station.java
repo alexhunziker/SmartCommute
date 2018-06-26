@@ -1,5 +1,7 @@
 package com.example.compuhypermeganet.smart_commute.model;
 
+import android.util.Log;
+
 import org.w3c.dom.Element;
 
 //
@@ -51,6 +53,7 @@ public class Station {
         this.id = station.getAttribute("id");
         this.x = Double.parseDouble(station.getAttribute("lat"));
         this.y = Double.parseDouble(station.getAttribute("lon"));
+//        Log.d("destination_id", this.id );
     }
 
 

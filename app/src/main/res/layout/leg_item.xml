@@ -1,120 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    >
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dip"
-        android:background="@color/colorInputBG"
-        android:orientation="vertical"
-        android:padding="10dip">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/image_photo"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                android:background="@drawable/shape" />
-
-            <TextView
-                android:id="@+id/depart_time"
-                android:layout_width="56dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="14:59 14:59"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/from"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Frankfurt Hbf(tief)"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:text="U4 in Richtung Bockenheimer Warter"
-                android:textColor="@color/colorText"
-                android:typeface="monospace"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include
-                android:id="@+id/tip_layout"
-                layout="@layout/tip_layout" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/image_photo_2"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                android:background="@drawable/shape" />
-
-            <TextView
-                android:id="@+id/arriv_time"
-                android:layout_width="56dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/detail"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/image_photo"
-                android:text="15:02"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/arriv_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/detail"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/time"
-                android:text="Frankfurt Hbf(tief)"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginBottom="5dip"
-            android:layout_marginTop="5dip"
-            android:background="#00485e" />
+        android:orientation="horizontal"
+        android:background="@color/navigationbar"
+        >
+        <include
+            android:id="@+id/new_leg_item"
+            layout="@layout/new_leg_item"
+            />
+        <include
+            android:id="@+id/old_leg_item"
+            layout="@layout/old_leg_item"
+            />
 
     </LinearLayout>
-</LinearLayout>
+
+
+</HorizontalScrollView>
