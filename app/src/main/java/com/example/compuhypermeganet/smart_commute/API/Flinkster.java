@@ -70,6 +70,7 @@ public class Flinkster {
                 thisCoord = thisOffer.getJSONObject("position").getJSONArray("coordinates");
                 x1 = thisCoord.getDouble(1);
                 y1 = thisCoord.getDouble(0);
+                // Distance to estimated estimated by air distance.
                 thisDist = Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
                 if (thisDist < dist) {
                     closestStation = new BikeStation(y1, x1);

@@ -149,9 +149,10 @@ public class Trip {
                 System.out.print("Info: Bike Option found");
                 // If availability and time Saving found -> break. (Maybe better: look for maximum)
                 if (potBikeTrip.getAvailability() > 0) {
-                    if (this.bikeTrip == null || potBikeTrip.getTimeSaving() > this.bikeTrip.getTimeSaving())
+                    if (this.bikeTrip == null || potBikeTrip.getTimeSaving() > this.bikeTrip.getTimeSaving()) {
                         this.bikeTrip = potBikeTrip;
-                    else System.out.print("...But less attractive that existing one");
+                        this.bikeTrip.setTimes(this.legs.get(i).getDeparture());
+                    } else System.out.print("...But less attractive that existing one");
                     System.out.println(".");
                 } else System.out.println("...But apparantly no availability of bikes.");
             }

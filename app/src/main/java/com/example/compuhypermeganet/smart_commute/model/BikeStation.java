@@ -60,6 +60,11 @@ public class BikeStation {
         return y;
     }
 
+    // Very rough estimate based on air distance and approximate conversion of lat/lon distance to meters
+    public double getWalkingTime() {
+        return distToDest/0.071319629;
+    }
+
     public BikeStation(double x, double y) {
         this.x = x;
         this.y = y;

@@ -11,6 +11,9 @@ package com.example.compuhypermeganet.smart_commute.model;
 
 import com.example.compuhypermeganet.smart_commute.API.OpenMap;
 
+import java.net.URL;
+import java.util.Date;
+
 public class BikeTrip {
     private BikeStation from;
     private BikeStation to;
@@ -19,6 +22,8 @@ public class BikeTrip {
     private double distance;
     private int availability;
     private double timeSaving;
+    private Date arrivalTime;
+    private Date departureTime;
 
     public Station getTransferStation() {
         return transferStation;
@@ -85,4 +90,23 @@ public class BikeTrip {
         this.transferStation = fromStation;
     }
 
+    public void setTimes(Date departureTime) {
+        this.departureTime = departureTime;
+        int totalBikeDuration = (int) (60000 * this.duration + this.to.getWalkingTime() + this.from.getWalkingTime());
+        this.arrivalTime = new Date(departureTime.getTime() + totalBikeDuration);
+        // System.out.println("Bike departure time = " + this.departureTime + " arriving at " + this.arrivalTime);
+    }
+
+    public URL getGoogleMapsLink() throws Exception {
+        return new URL("https://www.google.com/maps/dir/'" + this.from.getLat() + "," +
+                    this.from.getLon() + "'/'" + this.to.getLat() + "," + this.to.getLon() + "'/");
+    }
+
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
 }
