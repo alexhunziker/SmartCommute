@@ -11,10 +11,9 @@
 
 
 .idea
-build.gardle
-gardle.properties
-gardlew
-gardlew.bat
-local.properties
-settings.gardle
-SmartCommute.iml
+/build.gardle
+/gardle.properties
+/gardlew
+/gardlew.bat
+/settings.gardle
+/SmartCommute.iml
