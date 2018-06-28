@@ -8,3 +8,13 @@
 /build
 /captures
 .externalNativeBuild
+
+
+.idea
+build.gardle
+gardle.properties
+gardlew
+gardlew.bat
+local.properties
+settings.gardle
+SmartCommute.iml

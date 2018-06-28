@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// blabla
 public class Main_location extends AppCompatActivity {
     private TextView departure, destination;
     private Button search_button;
