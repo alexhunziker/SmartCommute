@@ -11,9 +11,9 @@
 
 
 .idea
-/build.gardle
-/gardle.properties
-/gardlew
-/gardlew.bat
-/settings.gardle
+/build.gradle
+/gradle.properties
+/gradlew
+/gradlew.bat
+/settings.gradle
 /SmartCommute.iml
