@@ -1,7 +1,5 @@
 package com.example.compuhypermeganet.smart_commute.model;
 
-import android.util.Log;
-
 import org.w3c.dom.Element;
 
 //

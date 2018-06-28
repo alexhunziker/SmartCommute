@@ -1,7 +1,5 @@
 package com.example.compuhypermeganet.smart_commute.model;
 
-import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

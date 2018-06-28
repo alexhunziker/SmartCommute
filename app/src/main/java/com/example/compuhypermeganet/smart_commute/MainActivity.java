@@ -2,7 +2,9 @@ package com.example.compuhypermeganet.smart_commute;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -23,49 +25,54 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.compuhypermeganet.smart_commute.adapter.BikeTripAdapter;
 import com.example.compuhypermeganet.smart_commute.adapter.TripAdapter;
 import com.example.compuhypermeganet.smart_commute.model.Station;
 import com.example.compuhypermeganet.smart_commute.model.Trip;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private FragmentStatePagerAdapter fragmentStatePagerAdapter;
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+
+    private SectionStatePagerAdapter fragmentStatePagerAdapter;
+
     private ViewPager mViewPager;
     public static String depart_id;
     public static String dest_id;
+    private Trip trip;
+    private Station from;
+    private Station to;
+    public static View view1,view2;
+    public static ListView listview1,listview2;
+    public static Button Google;// = view2.findViewById(R.id.google);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        //
         Intent intent = getIntent();
         depart_id = intent.getStringExtra("depart_id");
         dest_id = intent.getStringExtra("dest_id");
+
+        //
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+
         fragmentStatePagerAdapter = new SectionStatePagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(fragmentStatePagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -82,6 +89,73 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        view1 = getLayoutInflater().inflate(R.layout.activity_navigation, null);
+        view2 = getLayoutInflater().inflate(R.layout.listview_smartplan, null);
+
+        listview1 = (ListView) view1.findViewById(R.id.plan);
+        listview2 = view2.findViewById(R.id.smartplan);
+        new CallRMV().execute(depart_id, dest_id);
+
+
+
+    }
+    private class CallRMV extends AsyncTask<String, Integer, String> {
+        protected String doInBackground(String... params) {
+            from = new Station(params[0]);
+            to = new Station(params[1]);
+            Log.d("destination_id_navi", to.getId() );
+            trip = new Trip(from, to, new Date());
+            return "";
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(String result) {
+            // this is executed on the main thread after the process is over
+            // update your UI here
+            if(trip!=null){
+                TripAdapter adapter1 = new TripAdapter(MainActivity.this, R.layout.leg_item, trip);
+                BikeTripAdapter adapter2 = new BikeTripAdapter(MainActivity.this, R.layout.leg_item, trip);
+                listview1.setAdapter(adapter1);
+                listview2.setAdapter(adapter2);
+                listview1.setSelection(ListView.FOCUS_DOWN);
+                listview2.setSelection(ListView.FOCUS_DOWN);
+                if(trip.getBikeTrip()!=null){
+                    trip.getBikeTrip().getDuration();
+                    TextView availability = view2.findViewById(R.id.availability);
+                    availability.setText(trip.getBikeTrip().getAvailability()+" bikes");
+                    TextView Duration = view2.findViewById(R.id.duration);
+                    Duration.setText("Duration " + (int) trip.getBikeTrip().getDuration() + " min Distance " + (int) trip.getBikeTrip().getDistance() + " m");
+                    Google = view2.findViewById(R.id.google);
+                    Google.setOnClickListener(new View.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(View v) {
+                                                      if(trip!=null) {
+//                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
+                                                          String uri = "http://maps.google.com/maps?saddr=" +
+                                                                  trip.getBikeTrip().getTransferStation().getX()+ "," +
+                                                                  trip.getBikeTrip().getTransferStation().getY()+ "&daddr=" +
+                                                                  trip.getBikeTrip().getTo().getLat()+ "," + trip.getBikeTrip().getTo().getLon()+"&travelmode=bicycling";
+                                                          Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                                          startActivity(intent);
+
+                                                      }else{
+                                                          Toast.makeText(MainActivity.this,"no bike trip",Toast.LENGTH_SHORT).show();
+                                                      }
+
+
+                                                  }
+                                              }
+                    );
+                }else{
+                    view2.findViewById(R.id.tipps).setVisibility(View.GONE);
+                    view2.findViewById(R.id.google).setVisibility(View.GONE);
+                }
+
+            }
+
+        }
     }
 
 
@@ -117,14 +191,11 @@ public class MainActivity extends AppCompatActivity {
          */
 
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private ListView listView;
-        private TripAdapter adapter;
-        private Trip trip;
-        private Station from;
-        private Station to;
-        public  Context mContext;
 
+        public  Context mContext;
+        public static int position;
         public PlaceholderFragment() {
+            mContext = getActivity();
         }
 
         /**
@@ -135,22 +206,35 @@ public class MainActivity extends AppCompatActivity {
 
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
+            position = sectionNumber;
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
-
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            position = getArguments() != null ? getArguments().getInt(ARG_SECTION_NUMBER) : 1;
+        }
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-//            if(ARG_SECTION_NUMBER.equals(1)){
-                View rootView = inflater.inflate(R.layout.activity_navigation, container, false);
-                ListView listView = (ListView) rootView.findViewById(R.id.plan);
-                 mContext = getActivity();
-
-            new CallRMV().execute(depart_id, dest_id);
-                return rootView;
+            position = getArguments() != null ? getArguments().getInt(ARG_SECTION_NUMBER) : 1;
+            if(position==1){
+                return view1;
+            }
+            else{
+                return view2;
+            }
+//            View rootView = inflater.inflate(R.layout.activity_navigation, container, false);
+//            listView = (ListView) rootView.findViewById(R.id.plan);
+//            return rootView;
+//            if(position == 1){
+//                View rootView = inflater.inflate(R.layout.activity_navigation, container, false);
+//                listView = (ListView) rootView.findViewById(R.id.plan);
+//            new CallRMV().execute(depart_id, dest_id);
+//                return rootView;
 //            }else{
 //                View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 //                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
@@ -163,26 +247,6 @@ public class MainActivity extends AppCompatActivity {
         public void onActivityCreated(@Nullable Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
         }
-        private class CallRMV extends AsyncTask<String, Integer, String> {
-            protected String doInBackground(String... params) {
-                from = new Station(params[0]);
-                to = new Station(params[1]);
-                Log.d("destination_id_navi", to.getId() );
-                trip = new Trip(from, to, new Date());
-                return "";
-            }
-
-            protected void onProgressUpdate(Integer... progress) {
-            }
-
-            protected void onPostExecute(String result) {
-                // this is executed on the main thread after the process is over
-                // update your UI here
-                adapter = new TripAdapter(mContext, R.layout.leg_item, trip);
-                listView.setAdapter(adapter);
-            }
-        }
-
     }
 
 
@@ -213,5 +277,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
     }
+
 }

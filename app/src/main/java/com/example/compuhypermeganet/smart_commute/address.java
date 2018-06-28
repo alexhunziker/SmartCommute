@@ -2,14 +2,14 @@ package com.example.compuhypermeganet.smart_commute;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.text.TextWatcher;
 
 import com.example.compuhypermeganet.smart_commute.API.rmv;
 import com.example.compuhypermeganet.smart_commute.adapter.StationAdapter;

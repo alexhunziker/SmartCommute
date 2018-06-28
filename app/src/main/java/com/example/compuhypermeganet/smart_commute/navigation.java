@@ -2,23 +2,18 @@ package com.example.compuhypermeganet.smart_commute;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 
 import com.example.compuhypermeganet.smart_commute.API.Flinkster;
-import com.example.compuhypermeganet.smart_commute.API.rmv;
 import com.example.compuhypermeganet.smart_commute.adapter.TripAdapter;
 import com.example.compuhypermeganet.smart_commute.model.BikeStation;
 import com.example.compuhypermeganet.smart_commute.model.Station;
 import com.example.compuhypermeganet.smart_commute.model.Trip;
 
-import org.w3c.dom.Element;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class navigation extends AppCompatActivity {

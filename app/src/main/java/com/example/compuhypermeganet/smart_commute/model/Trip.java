@@ -1,15 +1,13 @@
 package com.example.compuhypermeganet.smart_commute.model;
 
-import android.util.Log;
-
 import com.example.compuhypermeganet.smart_commute.API.rmv;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 //
 // SmartCommute

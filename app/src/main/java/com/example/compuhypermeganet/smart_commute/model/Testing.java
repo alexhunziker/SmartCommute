@@ -1,7 +1,7 @@
 package com.example.compuhypermeganet.smart_commute.model;
 
-import com.example.compuhypermeganet.smart_commute.API.OpenMap;
 import com.example.compuhypermeganet.smart_commute.API.Flinkster;
+import com.example.compuhypermeganet.smart_commute.API.OpenMap;
 import com.example.compuhypermeganet.smart_commute.API.rmv;
 
 import java.util.ArrayList;
