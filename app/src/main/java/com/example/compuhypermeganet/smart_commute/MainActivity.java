@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
 //            if(ARG_SECTION_NUMBER.equals(1)){
                 View rootView = inflater.inflate(R.layout.activity_navigation, container, false);
-                listView = (ListView) rootView.findViewById(R.id.plan);
+                ListView listView = (ListView) rootView.findViewById(R.id.plan);
                  mContext = getActivity();
 
             new CallRMV().execute(depart_id, dest_id);
