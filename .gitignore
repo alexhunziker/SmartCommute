@@ -8,3 +8,13 @@
 /build
 /captures
 .externalNativeBuild
+
+
+.idea
+/build.gradle
+/gradle.properties
+/gradlew
+/gradlew.bat
+/settings.gradle
+/SmartCommute.iml
+/gradle
