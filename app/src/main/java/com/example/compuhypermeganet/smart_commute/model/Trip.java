@@ -131,7 +131,9 @@ public class Trip {
         // Find Bike option
         BikeStation potEnd = BikeStation.findCloseBikeStation(this.legs.get(this.legs.size() - 1).getTo());
         BikeTrip potBikeTrip;
+        // prefArrTime is the time at which the starting point of the next leg is reached (departure time - waiting time)
         double remCommuteTime;
+        Date prevArrTime;
         //Look for Bike Station at destination
         if (potEnd == null) return;
         // Check for Each Intermediate Station & Compare Times
@@ -140,16 +142,22 @@ public class Trip {
             potBikeTrip = new BikeTrip(this.legs.get(i).getFrom(), potEnd);
             if (potBikeTrip == null)
                 continue;        // Always False, because Object will be constructed anyways. Should give correct results anyways though. If not this needs to be fixed.
-            remCommuteTime = (this.getArrivalTime().getTime() - legs.get(i).getDeparture().getTime()) / 60_000;
+            if (i==0){
+                prevArrTime = this.searchTime;
+            } else {
+                prevArrTime = legs.get(i-1).getDeparture();
+            }
+            // Modulo by day (quickfix for wrong date in legs)
+            remCommuteTime = (this.getArrivalTime().getTime() - (prevArrTime.getTime() % (1_000*3600*24))) / 60_000;
             potBikeTrip.setTimeSaving(remCommuteTime - potBikeTrip.getDuration());
-            System.out.println("Info: Bike option " + potBikeTrip.getDuration() + "vs remaining commute" + remCommuteTime);
+            System.out.println("Info: Bike option " + potBikeTrip.getDuration() + "vs remaining commute (incl Waittime) " + remCommuteTime);
             if (potBikeTrip.getTimeSaving() > 0) {
                 System.out.print("Info: Bike Option found");
                 // If availability and time Saving found -> break. (Maybe better: look for maximum)
                 if (potBikeTrip.getAvailability() > 0) {
                     if (this.bikeTrip == null || potBikeTrip.getTimeSaving() > this.bikeTrip.getTimeSaving()) {
                         this.bikeTrip = potBikeTrip;
-                        this.bikeTrip.setTimes(this.legs.get(i).getDeparture());
+                        this.bikeTrip.setTimes(prevArrTime);
                     } else System.out.print("...But less attractive that existing one");
                     System.out.println(".");
                 } else System.out.println("...But apparantly no availability of bikes.");
