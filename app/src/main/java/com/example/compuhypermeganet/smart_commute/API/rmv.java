@@ -84,6 +84,11 @@ public class rmv {
                 Element stopLocation = (Element) stopLocations.item(i);
                 stations.add(new Station(stopLocation));
             }
+            NodeList coordLocations = doc.getElementsByTagName("CoordLocation");
+            for(int i = 0; i<coordLocations.getLength(); i++) {
+                Element coordLocation = (Element) coordLocations.item(i);
+                stations.add(new Station(coordLocation));
+            }
             return stations;
         }
         catch (Exception e){
