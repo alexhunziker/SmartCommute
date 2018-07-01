@@ -1,4 +1,12 @@
 package com.example.compuhypermeganet.smart_commute;
+//
+// SmartCommute
+// Trip.java
+//
+// Alex Hunziker, Xinyuan Cai
+// 2018
+//
+
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,7 +41,6 @@ public class navigation extends AppCompatActivity {
 
         Intent intent = getIntent();
         new CallRMV().execute(intent.getStringExtra("depart_id"), intent.getStringExtra("dest_id"));
-        new CallFlinkster().execute();
     }
 
     private class CallRMV extends AsyncTask<String, Integer, String> {
@@ -56,26 +63,7 @@ public class navigation extends AppCompatActivity {
         }
     }
 
-    private class CallFlinkster extends AsyncTask<String, Integer, String> {
-        protected String doInBackground(String... q) {
-            BikeStation termStation = Flinkster.getNearbyBikeStation(50.128835, 8.666168);
-//            System.out.println(termStation.getX());
 
-            Trip mytrip = new Trip();
-//            BikeStation startStation = flinkster.getAvailableBike(50.128835, 8.666168, mytrip, 1000);
-//            System.out.println(startStation.getReservationLink());
-//            System.out.println(mytrip.getAvailableBikesNo());
-            return "";
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-        }
-
-        protected void onPostExecute(String result) {
-            // this is executed on the main thread after the process is over
-            // update your UI here
-        }
-    }
 
 
 }

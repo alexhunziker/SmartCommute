@@ -1,4 +1,12 @@
 package com.example.compuhypermeganet.smart_commute;
+//
+// SmartCommute
+// Trip.java
+//
+// Alex Hunziker, Xinyuan Cai
+// 2018
+//
+
 
 import android.content.Context;
 import android.content.Intent;

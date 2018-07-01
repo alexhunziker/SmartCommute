@@ -1,4 +1,12 @@
 package com.example.compuhypermeganet.smart_commute;
+//
+// SmartCommute
+// Trip.java
+//
+// Alex Hunziker, Xinyuan Cai
+// 2018
+//
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -80,14 +88,14 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         view1 = getLayoutInflater().inflate(R.layout.activity_navigation, null);
         view2 = getLayoutInflater().inflate(R.layout.listview_smartplan, null);
@@ -95,9 +103,6 @@ public class MainActivity extends AppCompatActivity {
         listview1 = (ListView) view1.findViewById(R.id.plan);
         listview2 = view2.findViewById(R.id.smartplan);
         new CallRMV().execute(depart_id, dest_id);
-
-
-
     }
     private class CallRMV extends AsyncTask<String, Integer, String> {
         protected String doInBackground(String... params) {

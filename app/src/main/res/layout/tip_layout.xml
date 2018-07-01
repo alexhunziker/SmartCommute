@@ -9,46 +9,26 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
-        android:background="@color/colorTipps">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:text="CallABike  "
-                android:textColor="@color/colorText"
-                android:textStyle="bold"
-                android:textSize="15sp" />
-            <TextView
+        >
+        <TextView
                 android:id="@+id/availability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = "5 bikes available"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="110dp"
-                android:text=">"
-                android:textColor="@color/colorPrimaryDark" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:text = "5 bikes available"
+                android:textSize="20sp"/>
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
                 android:text="Duration 12 min "
-                android:textColor="@color/colorText"
-                android:textSize="15sp" />
-
-        </LinearLayout>
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorInputBG"
+                android:text="open Map for Bike Route" />
 
     </LinearLayout>
 

@@ -35,12 +35,12 @@
                 android:saveEnabled="true"
                 android:text="from......"
                 android:padding="5dip"
-                android:textSize="16sp" />
+                android:textSize="25sp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="5px"
             android:layout_marginBottom="5dip"
             android:layout_marginTop="5dip"
             android:background="#eeeeee" />
@@ -68,7 +68,7 @@
                 android:background="#00000000"
                 android:text="to......"
                 android:padding="5dip"
-                android:textSize="16sp" />
+                android:textSize="25sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

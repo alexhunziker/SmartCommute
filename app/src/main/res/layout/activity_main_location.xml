@@ -4,38 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cloud"
+    android:background="@drawable/sunset"
     tools:context=".Main_location">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="67dp">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="594dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="@+id/input_layout" />
 
-        <TextView
-            android:id="@+id/gutentag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Guten Tag"
-            android:textColor="@color/colorInputBG"
-            android:textSize="32dp"
-            android:textStyle="bold"
-            android:typeface="sans" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/gutentag"
-            android:layout_centerHorizontal="true"
-            android:text="Wohin gehen Sie?"
-            android:textColor="@color/colorInputBG"
-            android:textSize="24dp"
-            android:textStyle="normal"
-            android:typeface="sans" />
-
-        <Button
+    <Button
 
             android:id="@+id/search_button"
             android:layout_width="match_parent"
@@ -47,19 +26,18 @@
             android:text="@string/Search"
             android:textAllCaps="false"
             android:textColor="@color/colorInputBG"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <include
-            android:layout_centerHorizontal="true"
-            android:id="@+id/input_layout"
-            layout="@layout/input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="130dip"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="54dp" />
+    <include
+        android:id="@+id/input_layout"
+        layout="@layout/input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toTopOf="@+id/search_button" />
 
-
-    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>
