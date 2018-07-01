@@ -25,6 +25,7 @@ public class Trip {
     private Date arrivalTime;//origin arrival time
     private int transfers;
     private BikeTrip bikeTrip;
+    private Car carTrip;
 
     public BikeTrip getBikeTrip() {
         return bikeTrip;
@@ -36,6 +37,10 @@ public class Trip {
         }
         return true;
 
+    }
+
+    public Car getCarTrip(){
+        return carTrip;
     }
 
     public double getDuration() {
@@ -145,7 +150,7 @@ public class Trip {
             if (i==0){
                 prevArrTime = this.searchTime;
             } else {
-                prevArrTime = legs.get(i-1).getDeparture();
+                prevArrTime = legs.get(i-1).getArrival();
             }
             // Modulo by day (quickfix for wrong date in legs)
             remCommuteTime = (this.getArrivalTime().getTime() - (prevArrTime.getTime() % (1_000*3600*24))) / 60_000;
@@ -163,6 +168,8 @@ public class Trip {
                 } else System.out.println("...But apparantly no availability of bikes.");
             }
         }
+        // Generate Car Option
+        this.carTrip = new Car(origin, destination, time);
     }
 
     public void addLeg(Leg newLeg) {
