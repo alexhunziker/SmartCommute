@@ -10,10 +10,15 @@ package com.example.compuhypermeganet.smart_commute;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +31,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +39,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -61,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public static View view1,view2;
     public static ListView listview1,listview2;
     public static Button Google;// = view2.findViewById(R.id.google);
+    boolean first = true;
 
 
     @Override
@@ -104,6 +112,41 @@ public class MainActivity extends AppCompatActivity {
         listview2 = view2.findViewById(R.id.smartplan);
         new CallRMV().execute(depart_id, dest_id);
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(first){
+            first = false;
+
+
+                listview1.getViewTreeObserver().addOnGlobalLayoutListener(
+                        new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                final int[] location = new int[2];
+                                final int[] loc2 = new int[2];
+                                //listview1.getViewTreeObserver().removeGlobalOnLayoutListener(MainActivity.this);//
+
+                                Log.d("locs not null"," "+listview1.getTop()+" "+listview1.getBottom()+" "+listview1.getHeight()+" "
+                                        +location[0]+" "+location[1]);
+                                location[0]=50;
+                                loc2[0]=location[0];
+                                loc2[1]=location[1]+listview1.getBottom()-50;
+
+                                final int[] locs = { location[0] ,location[1] ,location[0] ,loc2[1]};
+                                ConstraintLayout layout = findViewById(R.id.constraintLayout);
+                                final MyCanvas view=new MyCanvas(MainActivity.this,locs);
+                                view.invalidate();//
+                                layout.addView(view);
+                            }
+                        }
+                );
+
+
+        }
+    }
+
     private class CallRMV extends AsyncTask<String, Integer, String> {
         protected String doInBackground(String... params) {
             from = new Station(params[0]);
@@ -157,11 +200,33 @@ public class MainActivity extends AppCompatActivity {
                     view2.findViewById(R.id.tipps).setVisibility(View.GONE);
                     view2.findViewById(R.id.google).setVisibility(View.GONE);
                 }
-
+//                view1.getViewTreeObserver().addOnGlobalLayoutListener(
+//                        new ViewTreeObserver.OnGlobalLayoutListener() {
+//                            @Override
+//                            public void onGlobalLayout() {
+//                                //listview1.getViewTreeObserver().removeGlobalOnLayoutListener(MainActivity.this);//
+//                                final int[] location = new int[2];
+//                                final int[] loc2 = new int[2];
+//
+//                                listview1.getLocationOnScreen(location);
+//                                location[0] = (int)listview1.getTranslationX();
+//                                location[1] = (int)listview1.getTranslationY();
+//                                loc2[0]=location[0];
+//                                loc2[1]=location[1]+listview1.getHeight();
+//                                final int[] locs = { location[0] ,location[1] ,loc2[0] ,loc2[1]};
+//                                ConstraintLayout layout = findViewById(R.id.constraintLayout);
+//                                final MyCanvas view=new MyCanvas(MainActivity.this);
+//                                view.invalidate();//
+//                                layout.addView(view);
+//                            }
+//                        }
+//                );
             }
 
         }
     }
+
+
 
 
     @Override
@@ -256,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     public class SectionStatePagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionStatePagerAdapter(FragmentManager fm) {
@@ -284,5 +350,145 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public class MyCanvas extends View{
+
+        private Canvas myCanvas;
+        private Paint myPaint=new Paint();
+        private int[] locs;
+
+        public MyCanvas(Context context) {
+            super(context);
+            // TODO Auto-generated constructor stub
+        }
+        public MyCanvas(Context context, int[]  locs) {
+            super(context);
+            this.locs = locs;
+        }
+
+        public MyCanvas(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
+            // TODO Auto-generated constructor stub
+        }
+
+        public MyCanvas(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            // TODO Auto-generated method stub
+            super.onDraw(canvas);
+            setPaintDefaultStyle();
+            this.myCanvas=canvas;
+            if(locs!=null) {
+                Log.d("locs not null"," "+locs[0]+" "+locs[1]+" "+locs[2]+" "+locs[3]);
+                drawAL(locs[0], locs[1], locs[2], locs[3]);
+            }else{
+                drawAL(10,10,10,700);
+                Log.d("locs not null","null");
+            }
+        }
+
+        /**
+         * 设置画笔默认样式
+         */
+        public void setPaintDefaultStyle(){
+            myPaint.setAntiAlias(true);
+            myPaint.setColor(Color.BLACK);
+            myPaint.setStyle(Paint.Style.STROKE);
+            myPaint.setStrokeWidth(10);
+        }
+
+
+        /**
+         * 画圆
+         * @param x x坐标
+         * @param y	y坐标
+         * @param radius	圆的半径
+         */
+        public void drawCircle(float x,float y,float radius){
+            myCanvas.drawCircle(x, y, radius, myPaint);
+            invalidate();
+        }
+
+        /**
+         * 画一条直线
+         * @param fromX 起点x坐标
+         * @param fromY	起点Y坐标
+         * @param toX	终点X坐标
+         * @param toY	终点Y坐标
+         */
+        public void drawLine(float fromX,float fromY,float toX,float toY){
+            Path linePath=new Path();
+            linePath.moveTo(fromX, fromY);
+            linePath.lineTo(toX, toY);
+            linePath.close();
+            myCanvas.drawPath(linePath, myPaint);
+            invalidate();
+        }
+
+
+        /**
+         * draw arrow
+         * @param sx
+         * @param sy
+         * @param ex
+         * @param ey
+         */
+        public void drawAL(int sx, int sy, int ex, int ey)
+        {
+            double H = 8; // 箭头高度
+            double L = 3.5; // 底边的一半
+            int x3 = 0;
+            int y3 = 0;
+            int x4 = 0;
+            int y4 = 0;
+            double awrad = Math.atan(L / H); // 箭头角度
+            double arraow_len = Math.sqrt(L * L + H * H); // 箭头的长度
+            double[] arrXY_1 = rotateVec(ex - sx, ey - sy, awrad, true, arraow_len);
+            double[] arrXY_2 = rotateVec(ex - sx, ey - sy, -awrad, true, arraow_len);
+            double x_3 = ex - arrXY_1[0]; // (x3,y3)是第一端点
+            double y_3 = ey - arrXY_1[1];
+            double x_4 = ex - arrXY_2[0]; // (x4,y4)是第二端点
+            double y_4 = ey - arrXY_2[1];
+            Double X3 = new Double(x_3);
+            x3 = X3.intValue();
+            Double Y3 = new Double(y_3);
+            y3 = Y3.intValue();
+            Double X4 = new Double(x_4);
+            x4 = X4.intValue();
+            Double Y4 = new Double(y_4);
+            y4 = Y4.intValue();
+            // draw line
+            myCanvas.drawLine(sx, sy, ex, ey,myPaint);
+            Path triangle = new Path();
+            triangle.moveTo(ex, ey);
+            triangle.lineTo(x3, y3);
+            triangle.lineTo(x4, y4);
+            triangle.close();
+            myCanvas.drawPath(triangle,myPaint);
+
+        }
+        // 计算
+        public double[] rotateVec(int px, int py, double ang, boolean isChLen, double newLen)
+        {
+            double mathstr[] = new double[2];
+            // 矢量旋转函数，参数含义分别是x分量、y分量、旋转角、是否改变长度、新长度
+            double vx = px * Math.cos(ang) - py * Math.sin(ang);
+            double vy = px * Math.sin(ang) + py * Math.cos(ang);
+            if (isChLen) {
+                double d = Math.sqrt(vx * vx + vy * vy);
+                vx = vx / d * newLen;
+                vy = vy / d * newLen;
+                mathstr[0] = vx;
+                mathstr[1] = vy;
+            }
+            return mathstr;
+        }
+
+
+    }
+
 
 }

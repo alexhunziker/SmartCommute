@@ -88,6 +88,8 @@ public class Main_location extends AppCompatActivity {
 
                 } else {
                     Intent intent = new Intent(Main_location.this, MainActivity.class);
+                    Log.d("depart_id:",depart_id);
+                    Log.d("dest_id",dest_id);
                     intent.putExtra("depart_id", depart_id);
                     intent.putExtra("dest_id", dest_id);
                     startActivity(intent);

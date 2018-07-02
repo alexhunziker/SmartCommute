@@ -1,12 +1,15 @@
 package com.example.compuhypermeganet.smart_commute.adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.compuhypermeganet.smart_commute.MainActivity;
 import com.example.compuhypermeganet.smart_commute.R;
 import com.example.compuhypermeganet.smart_commute.model.Leg;
 import com.example.compuhypermeganet.smart_commute.model.Trip;
@@ -19,6 +22,7 @@ public class TripAdapter extends BaseAdapter {
     protected int resource;
     private List<Leg> legList;
     public Trip trip;
+    public View point1,point2;
 
     public TripAdapter(Context context, int resource, Trip trip){
         inflater = LayoutInflater.from(context);
@@ -68,6 +72,8 @@ public class TripAdapter extends BaseAdapter {
             vh.from.setText(leg.getFrom().getName());
             vh.mode.setText(leg.getLine() + " " + leg.getDirection());
         }
+
         return convertView;
     }
+
 }
