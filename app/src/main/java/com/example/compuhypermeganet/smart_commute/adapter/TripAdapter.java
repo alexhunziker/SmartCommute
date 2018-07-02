@@ -70,7 +70,12 @@ public class TripAdapter extends BaseAdapter {
             vh.arriv_time.setText(leg.getArrival().toString().substring(11, 16));
             vh.arriv_address.setText(leg.getTo().getName());
             vh.from.setText(leg.getFrom().getName());
-            vh.mode.setText(leg.getLine() + " " + leg.getDirection());
+            if(leg.getLine()==null){
+                vh.mode.setText(leg.getMode());
+            }else {
+                vh.mode.setText(leg.getLine() + " " + leg.getDirection());
+            }
+            Log.d("line",leg.getLine() + " " + leg.getDirection()+" "+leg.getMode());
         }
 
         return convertView;
