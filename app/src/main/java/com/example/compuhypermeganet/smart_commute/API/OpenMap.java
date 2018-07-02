@@ -22,6 +22,41 @@ import java.net.URL;
 
 public class OpenMap {
 
+    public static double getCarDuration(double x1, double y1, double x2, double y2){
+        try {
+            URL request = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + x1 + "," + y1 + "&destinations=" + x2 + "," + y2 + "&key=AIzaSyCR-i30y12Khnd2i37hslr4fkU3HaWDMT4");
+            System.out.println("Calling: " + request);
+            HttpURLConnection conn = (HttpURLConnection) request.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("HTTP ERROR " + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            // Combine to String
+            String response = "", output;
+            while ((output = br.readLine()) != null) {
+                // System.out.println(output);
+                response = response + output;
+            }
+
+            conn.disconnect();
+            JSONObject respObj = new JSONObject(response);
+
+            JSONObject elements = respObj.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0);
+            JSONObject duration = elements.getJSONObject("duration");
+            return duration.getDouble("value") / 60;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+
+    }
+
     public static double getDuration(double x1, double y1, double x2, double y2) {
         BikeTrip bt = new BikeTrip();
         setDurationDistance(x1, y1, x2, y2, bt);
@@ -49,7 +84,6 @@ public class OpenMap {
                 // System.out.println(output);
                 response = response + output;
             }
-
 
             conn.disconnect();
             JSONObject respObj = new JSONObject(response);
