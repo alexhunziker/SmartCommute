@@ -8,6 +8,9 @@ import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
+
+import static com.example.compuhypermeganet.smart_commute.model.Testing.printTrip;
 
 //
 // SmartCommute
@@ -26,6 +29,9 @@ public class Trip {
     private int transfers;
     private BikeTrip bikeTrip;
     private Car carTrip;
+
+    private static long DAY_MS = 24 * 3600 * 1000;
+    private static long MINUTE_MS = 60_000;
 
     public BikeTrip getBikeTrip() {
         return bikeTrip;
@@ -148,13 +154,21 @@ public class Trip {
             if (potBikeTrip == null)
                 continue;        // Always False, because Object will be constructed anyways. Should give correct results anyways though. If not this needs to be fixed.
             if (i==0){
-                prevArrTime = this.searchTime;
+                // Because data from rvm is always w/o DST
+                if (TimeZone.getDefault().inDaylightTime( new Date() )){
+                    System.out.print("DST Fix active");
+                    prevArrTime = new Date(this.searchTime.getTime() + 60*MINUTE_MS);
+                } else {
+                    prevArrTime = this.searchTime;
+                }
+
             } else {
                 prevArrTime = legs.get(i-1).getArrival();
             }
+            prevArrTime = new Date(prevArrTime.getTime() + 2*MINUTE_MS);
             // Modulo by day (quickfix for wrong date in legs)
-            remCommuteTime = (this.getArrivalTime().getTime() - (prevArrTime.getTime() % (1_000*3600*24))) / 60_000;
-            potBikeTrip.setTimeSaving(remCommuteTime - potBikeTrip.getDuration());
+            remCommuteTime = (this.getArrivalTime().getTime() - (prevArrTime.getTime() % DAY_MS)) / MINUTE_MS;
+            potBikeTrip.setTimeSaving(remCommuteTime - potBikeTrip.getDuration() - 2);
             System.out.println("Info: Bike option " + potBikeTrip.getDuration() + "vs remaining commute (incl Waittime) " + remCommuteTime);
             if (potBikeTrip.getTimeSaving() > 0) {
                 System.out.print("Info: Bike Option found");
@@ -170,6 +184,7 @@ public class Trip {
         }
         // Generate Car Option
         this.carTrip = new Car(origin, destination, time);
+        printTrip(this);
     }
 
     public void addLeg(Leg newLeg) {
