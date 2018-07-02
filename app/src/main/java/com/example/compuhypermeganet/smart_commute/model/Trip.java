@@ -80,6 +80,15 @@ public class Trip {
         this.transfers = 0;
     }
 
+    private long dstCorr(){
+        if (TimeZone.getDefault().inDaylightTime( new Date() )){
+            System.out.print("DST Fix active");
+            return 60*MINUTE_MS;
+        } else {
+            return 0;
+        }
+    }
+
     public Trip(Station origin, Station destination, Date time) {
         this.searchTime = time;
         this.legs = new ArrayList<Leg>();
@@ -154,20 +163,13 @@ public class Trip {
             if (potBikeTrip == null)
                 continue;        // Always False, because Object will be constructed anyways. Should give correct results anyways though. If not this needs to be fixed.
             if (i==0){
-                // Because data from rvm is always w/o DST
-                if (TimeZone.getDefault().inDaylightTime( new Date() )){
-                    System.out.print("DST Fix active");
-                    prevArrTime = new Date(this.searchTime.getTime() + 60*MINUTE_MS);
-                } else {
-                    prevArrTime = this.searchTime;
-                }
-
+                prevArrTime = this.searchTime;
             } else {
                 prevArrTime = legs.get(i-1).getArrival();
             }
             prevArrTime = new Date(prevArrTime.getTime() + 2*MINUTE_MS);
             // Modulo by day (quickfix for wrong date in legs)
-            remCommuteTime = (this.getArrivalTime().getTime() - (prevArrTime.getTime() % DAY_MS)) / MINUTE_MS;
+            remCommuteTime = (this.getArrivalTime().getTime() - ((prevArrTime.getTime() + dstCorr()) % DAY_MS)) / MINUTE_MS;
             potBikeTrip.setTimeSaving(remCommuteTime - potBikeTrip.getDuration() - 2);
             System.out.println("Info: Bike option " + potBikeTrip.getDuration() + "vs remaining commute (incl Waittime) " + remCommuteTime);
             if (potBikeTrip.getTimeSaving() > 0) {
