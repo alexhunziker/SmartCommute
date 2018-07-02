@@ -29,6 +29,7 @@
                             android:layout_height="wrap_content"
                             android:text="Frankfurt Hbf(tief)"
                             android:textColor="@color/colorText"
+                            android:layout_marginLeft="16dp"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                 </LinearLayout>
@@ -46,9 +47,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="100dp"
                             android:text="U4 in Richtung Bockenheimer Warter"
-                            android:textColor="@color/colorText"
+                            android:textColor="@color/richtung"
                             android:textSize="18sp"
-                            android:typeface="monospace" />
+                            />
 
                 </LinearLayout>
 
@@ -74,7 +75,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/detail"
                             android:layout_marginLeft="16dp"
-                            android:layout_toRightOf="@id/image_photo"
                             android:text="15:02"
                             android:textColor="@color/colorText"
                             android:textSize="20sp"

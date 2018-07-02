@@ -1,5 +1,6 @@
 package com.example.compuhypermeganet.smart_commute.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class BikeTripAdapter extends BaseAdapter {
         TextView arriv_time;
         TextView arriv_address;
     }
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder vh = null;
@@ -74,31 +76,6 @@ public class BikeTripAdapter extends BaseAdapter {
         }
         Leg leg = getItem(position);
         if(leg!=null) {
-//            if (trip.getBikeTrip() == null || !leg.getFrom().getName().equals(trip.getBikeTrip().getTransferStation().getName())) {
-//                vh.new_leg_item.setVisibility(View.GONE);
-//                vh.old_leg_item.setVisibility(View.VISIBLE);
-//                vh.depart_time.setText(leg.getDeparture().toString().substring(11, 16));
-//                vh.arriv_time.setText(leg.getArrival().toString().substring(11, 16));
-//                vh.arriv_address.setText(leg.getTo().getName());
-//                vh.from.setText(leg.getFrom().getName());
-//                vh.mode.setText(leg.getLine() + " " + leg.getDirection());
-//                Log.d("visibility", "gone");
-//
-//            } else {
-//                vh.old_leg_item.setVisibility(View.GONE);
-//                vh.new_depart_time = (TextView) convertView.findViewById(R.id.new_depart_time);
-//                vh.new_from = (TextView) convertView.findViewById(R.id.new_from);
-//                vh.new_mode = (TextView) convertView.findViewById(R.id.new_mode);
-//                vh.new_arriv_address = (TextView) convertView.findViewById(R.id.new_arriv_address);
-//                vh.new_arriv_time = (TextView) convertView.findViewById(R.id.new_arriv_time);
-//                BikeTrip bt = trip.getBikeTrip();
-//                vh.new_depart_time.setText(new Date().toString().substring(11, 16));
-//                vh.new_from.setText(leg.getFrom().getName());
-//                vh.new_mode.setText("By Callabike " + bt.getAvailability() + " bikes available at " + bt.getTransferStation().getName());
-//                vh.new_arriv_address.setText(bt.getTo().getAddress());
-//                vh.duration.setText("Duration " + (int) bt.getDuration() + " min Distance " + (int) bt.getDistance() + " m");
-//                Log.d("visibility", "show");
-//            }
             if(trip.getBikeTrip() == null || !leg.getFrom().getName().equals(trip.getBikeTrip().getTransferStation().getName())){
                 //normal plan
                 vh.depart_time.setText(leg.getDeparture().toString().substring(11, 16));
@@ -107,6 +84,7 @@ public class BikeTripAdapter extends BaseAdapter {
                 vh.from.setText(leg.getFrom().getName());
                 if(leg.getLine()!=null){
                     vh.mode.setText(leg.getLine() + " " + leg.getDirection());
+                    Log.d("line",leg.getLine() + " " + leg.getDirection());
                 }
                 Log.d("visibility", "show");
 
@@ -116,7 +94,7 @@ public class BikeTripAdapter extends BaseAdapter {
                 vh.arriv_time.setText(bt.getArrivalTime().toString().substring(11, 16));
                 vh.arriv_address.setText(bt.getTo().getAddress());
                 vh.from.setText(bt.getTransferStation().getName());
-                vh.mode.setText("By Callabike " + bt.getAvailability() + " bikes available at " + bt.getTransferStation().getName());
+                vh.mode.setText("By Callabike " + bt.getAvailability() + " bikes available at " + bt.getTransferStation().getName()+" Duration " + (int) bt.getDuration() + " min Distance " + (int) bt.getDistance() + " m");
                 Log.d("visibility", "gone");
             }
 

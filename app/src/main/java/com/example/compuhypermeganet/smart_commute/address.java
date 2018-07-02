@@ -25,6 +25,7 @@ import com.example.compuhypermeganet.smart_commute.model.Station;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 
 public class address extends AppCompatActivity {
@@ -54,7 +55,8 @@ public class address extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Toast.makeText(ShowAddressActivity.this,"onTextChanged ",Toast.LENGTH_SHORT).show();
             }
-
+            private Timer timer=new Timer();
+            private final long DELAY = 500; // milliseconds
             @Override
             public void afterTextChanged(Editable s) {
                 //Toast.makeText(ShowAddressActivity.this,"afterTextChanged ",Toast.LENGTH_SHORT).show();

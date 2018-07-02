@@ -8,4 +8,6 @@
     <color name="colorInputBG">#f8f9f9</color>
     <color name="gutentag">#e2ed04</color>
     <color name="Callabike">#bacf0303</color>
+    <color name="richtung">#ba605e5e</color>
+
 </resources>

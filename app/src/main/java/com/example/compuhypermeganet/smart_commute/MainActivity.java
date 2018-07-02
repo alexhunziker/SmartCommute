@@ -167,14 +167,8 @@ public class MainActivity extends AppCompatActivity {
                 BikeTripAdapter adapter2 = new BikeTripAdapter(MainActivity.this, R.layout.leg_item, trip);
                 listview1.setAdapter(adapter1);
                 listview2.setAdapter(adapter2);
-                listview1.setSelection(ListView.FOCUS_DOWN);
-                listview2.setSelection(ListView.FOCUS_DOWN);
                 if(trip.getBikeTrip()!=null){
                     trip.getBikeTrip().getDuration();
-                    TextView availability = view2.findViewById(R.id.availability);
-                    availability.setText(trip.getBikeTrip().getAvailability()+" bikes");
-                    TextView Duration = view2.findViewById(R.id.duration);
-                    Duration.setText("Duration " + (int) trip.getBikeTrip().getDuration() + " min Distance " + (int) trip.getBikeTrip().getDistance() + " m");
                     Google = view2.findViewById(R.id.google);
                     Google.setOnClickListener(new View.OnClickListener() {
                                                   @Override
@@ -197,8 +191,10 @@ public class MainActivity extends AppCompatActivity {
                                               }
                     );
                 }else{
-                    view2.findViewById(R.id.tipps).setVisibility(View.GONE);
                     view2.findViewById(R.id.google).setVisibility(View.GONE);
+                    TextView availability = view2.findViewById(R.id.availability);
+                    availability.setText("no bikes available");
+
                 }
 //                view1.getViewTreeObserver().addOnGlobalLayoutListener(
 //                        new ViewTreeObserver.OnGlobalLayoutListener() {
