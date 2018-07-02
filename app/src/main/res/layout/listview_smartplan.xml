@@ -8,26 +8,46 @@
     tools:context=".MainActivity$PlaceholderFragment">
 
     <ListView
-        android:id="@+id/smartplan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/tip_background"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1"/>
+    android:id="@+id/smartplan"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@color/colorInputBG"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+    tools:layout_constraintLeft_creator="1"
+    tools:layout_constraintTop_creator="1" />
 
-    <include
-        android:id="@+id/tipps"
-        layout="@layout/tip_layout"
+    <Button
+        android:id="@+id/google"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:text="open Map"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toStartOf="@id/callbike"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@+id/smartplan" />
+
+    <Button
+        android:id="@+id/callbike"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="open CallaBike"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@id/google"
+        app:layout_constraintTop_toBottomOf="@+id/smartplan" />
+    <TextView
+        android:id="@+id/availability"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/smartplan"/>
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No Bikes Available"
+        android:visibility="gone"/>
+
 
 </android.support.constraint.ConstraintLayout>

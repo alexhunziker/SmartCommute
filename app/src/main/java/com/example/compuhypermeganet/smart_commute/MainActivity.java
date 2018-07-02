@@ -8,6 +8,7 @@ package com.example.compuhypermeganet.smart_commute;
 //
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -15,7 +16,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -23,6 +26,7 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -67,8 +71,9 @@ public class MainActivity extends AppCompatActivity {
     private Station to;
     public static View view1,view2;
     public static ListView listview1,listview2;
-    public static Button Google;// = view2.findViewById(R.id.google);
+    public static Button Google,cab;
     boolean first = true;
+    int viewFinishedAt = -1;
 
 
     @Override
@@ -76,7 +81,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //
-        Intent intent = getIntent();
+        ActionBar actionBar =  getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);//设置图标可以点击
+            getSupportActionBar().setDisplayShowHomeEnabled(true);//使图标可以显示
+            actionBar.setTitle("Your Trip");
+        }
+            Intent intent = getIntent();
         depart_id = intent.getStringExtra("depart_id");
         dest_id = intent.getStringExtra("dest_id");
 
@@ -96,14 +110,6 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         view1 = getLayoutInflater().inflate(R.layout.activity_navigation, null);
         view2 = getLayoutInflater().inflate(R.layout.listview_smartplan, null);
@@ -113,39 +119,47 @@ public class MainActivity extends AppCompatActivity {
         new CallRMV().execute(depart_id, dest_id);
     }
 
-    @Override
+
+        @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(first){
+        if(first&&hasFocus){
+            Log.d("first",first+"");
             first = false;
 
+            listview1.getViewTreeObserver().addOnGlobalLayoutListener(
+                    new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            final int[] location = new int[2];
+                            final int[] loc2 = new int[2];
+                            if(viewFinishedAt == listview1.getBottom()&&viewFinishedAt!=0){
+                                listview1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                listview1.getViewTreeObserver().addOnGlobalLayoutListener(
-                        new ViewTreeObserver.OnGlobalLayoutListener() {
-                            @Override
-                            public void onGlobalLayout() {
-                                final int[] location = new int[2];
-                                final int[] loc2 = new int[2];
-                                //listview1.getViewTreeObserver().removeGlobalOnLayoutListener(MainActivity.this);//
-
-                                Log.d("locs not null"," "+listview1.getTop()+" "+listview1.getBottom()+" "+listview1.getHeight()+" "
-                                        +location[0]+" "+location[1]);
-                                location[0]=50;
-                                loc2[0]=location[0];
-                                loc2[1]=location[1]+listview1.getBottom()-50;
-
-                                final int[] locs = { location[0] ,location[1] ,location[0] ,loc2[1]};
-                                ConstraintLayout layout = findViewById(R.id.constraintLayout);
-                                final MyCanvas view=new MyCanvas(MainActivity.this,locs);
-                                view.invalidate();//
-                                layout.addView(view);
                             }
-                        }
-                );
+                            if(viewFinishedAt == listview1.getBottom()){
+                                return;
+                            }
+                            Log.d("locs not null"," "+listview1.getTop()+" "+listview1.getBottom()+" "+listview1.getHeight()+" "
+                                    +location[0]+" "+location[1]);
+                            location[0]=50;
+                            loc2[0]=location[0];
+                            loc2[1]=location[1]+listview1.getBottom()-50;
+                            viewFinishedAt = listview1.getBottom();
 
+                            final int[] locs = { location[0] ,location[1] ,location[0] ,loc2[1]};
+                            ConstraintLayout layout = findViewById(R.id.constraintLayout);
+                            final MyCanvas view=new MyCanvas(MainActivity.this,locs);
+                            view.invalidate();//
+                            layout.addView(view);
+
+                        }
+                    }
+            );
 
         }
     }
+
 
     private class CallRMV extends AsyncTask<String, Integer, String> {
         protected String doInBackground(String... params) {
@@ -190,33 +204,26 @@ public class MainActivity extends AppCompatActivity {
                                                   }
                                               }
                     );
+                    cab = view2.findViewById(R.id.callbike);
+                    cab.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            Intent openCall = getPackageManager().getLaunchIntentForPackage("de.bahn.callabike");
+                            if(openCall==null){
+                                Toast.makeText(MainActivity.this, "CallaBike is not installed", Toast.LENGTH_SHORT).show();
+                            }else{
+                                startActivity(openCall);
+
+                            }
+                        }
+                    });
                 }else{
                     view2.findViewById(R.id.google).setVisibility(View.GONE);
                     TextView availability = view2.findViewById(R.id.availability);
-                    availability.setText("no bikes available");
+                    availability.setVisibility(View.VISIBLE);
 
                 }
-//                view1.getViewTreeObserver().addOnGlobalLayoutListener(
-//                        new ViewTreeObserver.OnGlobalLayoutListener() {
-//                            @Override
-//                            public void onGlobalLayout() {
-//                                //listview1.getViewTreeObserver().removeGlobalOnLayoutListener(MainActivity.this);//
-//                                final int[] location = new int[2];
-//                                final int[] loc2 = new int[2];
-//
-//                                listview1.getLocationOnScreen(location);
-//                                location[0] = (int)listview1.getTranslationX();
-//                                location[1] = (int)listview1.getTranslationY();
-//                                loc2[0]=location[0];
-//                                loc2[1]=location[1]+listview1.getHeight();
-//                                final int[] locs = { location[0] ,location[1] ,loc2[0] ,loc2[1]};
-//                                ConstraintLayout layout = findViewById(R.id.constraintLayout);
-//                                final MyCanvas view=new MyCanvas(MainActivity.this);
-//                                view.invalidate();//
-//                                layout.addView(view);
-//                            }
-//                        }
-//                );
+
             }
 
         }
@@ -241,6 +248,14 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.homeAsUp){
+            finish();
+            return true;
+        }
+        if (id == R.id.home){
+            finish();
             return true;
         }
 
@@ -410,10 +425,10 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * 画一条直线
-         * @param fromX 起点x坐标
-         * @param fromY	起点Y坐标
-         * @param toX	终点X坐标
-         * @param toY	终点Y坐标
+         * @param fromX
+         * @param fromY
+         * @param toX
+         * @param toY
          */
         public void drawLine(float fromX,float fromY,float toX,float toY){
             Path linePath=new Path();
@@ -434,19 +449,19 @@ public class MainActivity extends AppCompatActivity {
          */
         public void drawAL(int sx, int sy, int ex, int ey)
         {
-            double H = 8; // 箭头高度
-            double L = 3.5; // 底边的一半
+            double H = 8;
+            double L = 3.5;
             int x3 = 0;
             int y3 = 0;
             int x4 = 0;
             int y4 = 0;
-            double awrad = Math.atan(L / H); // 箭头角度
-            double arraow_len = Math.sqrt(L * L + H * H); // 箭头的长度
+            double awrad = Math.atan(L / H); //
+            double arraow_len = Math.sqrt(L * L + H * H);
             double[] arrXY_1 = rotateVec(ex - sx, ey - sy, awrad, true, arraow_len);
             double[] arrXY_2 = rotateVec(ex - sx, ey - sy, -awrad, true, arraow_len);
-            double x_3 = ex - arrXY_1[0]; // (x3,y3)是第一端点
+            double x_3 = ex - arrXY_1[0];
             double y_3 = ey - arrXY_1[1];
-            double x_4 = ex - arrXY_2[0]; // (x4,y4)是第二端点
+            double x_4 = ex - arrXY_2[0];
             double y_4 = ey - arrXY_2[1];
             Double X3 = new Double(x_3);
             x3 = X3.intValue();
@@ -466,11 +481,9 @@ public class MainActivity extends AppCompatActivity {
             myCanvas.drawPath(triangle,myPaint);
 
         }
-        // 计算
         public double[] rotateVec(int px, int py, double ang, boolean isChLen, double newLen)
         {
             double mathstr[] = new double[2];
-            // 矢量旋转函数，参数含义分别是x分量、y分量、旋转角、是否改变长度、新长度
             double vx = px * Math.cos(ang) - py * Math.sin(ang);
             double vy = px * Math.sin(ang) + py * Math.cos(ang);
             if (isChLen) {
