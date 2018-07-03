@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -85,7 +86,17 @@ public class Main_location extends AppCompatActivity {
                 }else
                 if (depart_id==null || dest_id==null) {
                     Toast.makeText(Main_location.this, "please enter your departure and destination", Toast.LENGTH_LONG).show();
+                    Intent openCall = getPackageManager().getLaunchIntentForPackage("de.bahn.callabike");
+                    if(openCall==null){
+                        Toast.makeText(Main_location.this, "CallaBike is not installed", Toast.LENGTH_SHORT).show();
+                    }else{
+                        openCall.setAction("android.intent.action.WRITE");
+                        openCall.setAction();
+                        String BikeId = "11015";
+                        openCall.setData(Uri.parse("callabike://rentbike?bike=" + BikeId));
+                        startActivity(openCall);
 
+                    }
                 } else {
                     Intent intent = new Intent(Main_location.this, MainActivity.class);
                     Log.d("depart_id:",depart_id);

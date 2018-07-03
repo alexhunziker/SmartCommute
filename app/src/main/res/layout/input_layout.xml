@@ -35,9 +35,8 @@
                 android:saveEnabled="true"
                 android:text="from......"
                 android:padding="5dip"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
         </LinearLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="5px"
@@ -68,7 +67,7 @@
                 android:background="#00000000"
                 android:text="to......"
                 android:padding="5dip"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

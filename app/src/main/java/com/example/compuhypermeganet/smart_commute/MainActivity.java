@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);//设置图标可以点击
-            getSupportActionBar().setDisplayShowHomeEnabled(true);//使图标可以显示
+            getSupportActionBar().setHomeButtonEnabled(true);//
+            getSupportActionBar().setDisplayShowHomeEnabled(true);//
             actionBar.setTitle("Your Trip");
         }
             Intent intent = getIntent();
@@ -308,20 +308,7 @@ public class MainActivity extends AppCompatActivity {
             else{
                 return view2;
             }
-//            View rootView = inflater.inflate(R.layout.activity_navigation, container, false);
-//            listView = (ListView) rootView.findViewById(R.id.plan);
-//            return rootView;
-//            if(position == 1){
-//                View rootView = inflater.inflate(R.layout.activity_navigation, container, false);
-//                listView = (ListView) rootView.findViewById(R.id.plan);
-//            new CallRMV().execute(depart_id, dest_id);
-//                return rootView;
-//            }else{
-//                View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-//                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-//                return rootView;
-//            }
+
         }
 
         @Override
@@ -401,9 +388,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        /**
-         * 设置画笔默认样式
-         */
+
         public void setPaintDefaultStyle(){
             myPaint.setAntiAlias(true);
             myPaint.setColor(Color.BLACK);
@@ -414,9 +399,9 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * 画圆
-         * @param x x坐标
-         * @param y	y坐标
-         * @param radius	圆的半径
+         * @param x
+         * @param y
+         * @param radius
          */
         public void drawCircle(float x,float y,float radius){
             myCanvas.drawCircle(x, y, radius, myPaint);
