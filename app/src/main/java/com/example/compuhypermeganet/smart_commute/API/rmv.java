@@ -111,7 +111,7 @@ public class rmv {
             String origin_in = origin.getId().replace(" ", "%20");
             String destination_in = destination.getId().replace(" ", "%20");
             url = new URL("https://www.rmv.de/hapi/trip?accessId=0e10668a-6fde-4ffd-aabf-02dbfc43786f&originId=" + origin_in
-                    + "&destId=" + destination_in + "&numF=1&date=" + date + "&time=" + time);
+                    + "&destId=" + destination_in + "&numF=1&date=" + date + "&time=" + time + "&originBike=0&destBike=0");
 
             System.out.println("url"+url);
             // Perform GET Request, getting XML String
