@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     Google.setOnClickListener(new View.OnClickListener() {
                                                   @Override
                                                   public void onClick(View v) {
-                                                      if(trip!=null) {
+
 //                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
                                                           String uri = "http://maps.google.com/maps?saddr=" +
                                                                   trip.getBikeTrip().getTransferStation().getX()+ "," +
@@ -195,12 +195,6 @@ public class MainActivity extends AppCompatActivity {
                                                                   trip.getBikeTrip().getTo().getLat()+ "," + trip.getBikeTrip().getTo().getLon()+"&travelmode=bicycling";
                                                           Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                                                           startActivity(intent);
-
-                                                      }else{
-                                                          Toast.makeText(MainActivity.this,"no bike trip",Toast.LENGTH_SHORT).show();
-                                                      }
-
-
                                                   }
                                               }
                     );
@@ -208,19 +202,21 @@ public class MainActivity extends AppCompatActivity {
                     cab.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View v){
-                            Intent openCall = getPackageManager().getLaunchIntentForPackage("de.bahn.callabike");
+                            Intent openCall = new Intent (Intent.ACTION_VIEW);
                             if(openCall==null){
                                 Toast.makeText(MainActivity.this, "CallaBike is not installed", Toast.LENGTH_SHORT).show();
                             }else{
+                                openCall.setData(Uri.parse(trip.getBikeTrip().getFrom().getReservationLink()));
                                 startActivity(openCall);
-
                             }
                         }
                     });
                 }else{
                     view2.findViewById(R.id.google).setVisibility(View.GONE);
+                    view2.findViewById(R.id.callbike).setVisibility(View.GONE);
                     TextView availability = view2.findViewById(R.id.availability);
                     availability.setVisibility(View.VISIBLE);
+
 
                 }
 
