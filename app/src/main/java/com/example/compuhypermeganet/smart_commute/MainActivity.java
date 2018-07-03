@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     public static View view1,view2;
     public static ListView listview1,listview2;
     public static Button Google,cab;
+    public static TextView bikeStats;
     boolean first = true;
     int viewFinishedAt = -1;
 
@@ -182,7 +183,10 @@ public class MainActivity extends AppCompatActivity {
                 listview1.setAdapter(adapter1);
                 listview2.setAdapter(adapter2);
                 if(trip.getBikeTrip()!=null){
-                    trip.getBikeTrip().getDuration();
+                    //trip.getBikeTrip().getDuration();
+                    bikeStats = view2.findViewById(R.id.bikestats);
+                    bikeStats.setText("Distance: " + trip.getBikeTrip().getDistance() + "m\nDuration:" +
+                            trip.getBikeTrip().getDuration() + "min\nTime saving:" + trip.getBikeTrip().getTimeSaving() + "min");
                     Google = view2.findViewById(R.id.google);
                     Google.setOnClickListener(new View.OnClickListener() {
                                                   @Override
