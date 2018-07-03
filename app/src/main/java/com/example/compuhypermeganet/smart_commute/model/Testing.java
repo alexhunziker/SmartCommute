@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class Testing {
 
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
 
         System.out.print("Get Bike Travel Time...");
         double duration = OpenMap.getDuration(50.108120, 8.631881, 50.116953, 8.649144);
@@ -80,6 +80,35 @@ public class Testing {
         System.out.println("--------------------------------------------------------------");
         System.out.println("--------------------end        -------------------------------");
 
+    }*/
+
+    public static void printTrip(Trip t){
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("Trip Information: Search at " + t.getSearchTime() + ", Duration " + t.getDuration() + ", Arrival Time " + t.getArrivalTime() + ", Transfers " + t.getTransfers());
+        System.out.println("--------------------------------------------------------------");
+        ArrayList<Leg> legs = t.getLegs();
+        for (int i = 0; i < legs.size(); i++) {
+            Leg cl = legs.get(i);
+            System.out.println("At " + cl.getDeparture().getTime() + " by " + cl.getMode() + " " + cl.getLine() + " arrive at " + cl.getArrival().getTime());
+            Station from = cl.getFrom();
+            Station to = cl.getTo();
+            System.out.println("From: " + from.getName() + " at " + from.getX() + "," + from.getY());
+            System.out.println("To: " + to.getName() + " at " + to.getX() + "," + to.getY());
+            System.out.println("");
+        }
+        System.out.println("--------------------------------------------------------------");
+        BikeTrip bt = t.getBikeTrip();
+        if (bt != null) {
+            System.out.println("Bike trip with: Availability " + bt.getAvailability() + ", Duration " + bt.getDuration() + ", Distance " + bt.getDistance() + ", timeSaving " + bt.getTimeSaving() + ", Transfer Station " + bt.getTransferStation().getName());
+            BikeStation from = bt.getFrom();
+            BikeStation to = bt.getTo();
+            System.out.println("From: " + from.getAddress() + " at " + from.getLat() + "," + from.getLon() + " with availability " + from.getAvailability() + " requires Walking " + from.getDistToDest() + " Reservation " + from.getReservationLink());
+            System.out.println("To: " + to.getAddress() + " at " + to.getLat() + "," + to.getLon() + " requires Walking " + from.getDistToDest());
+        } else {
+            System.out.println("No Bike Trip in this trip");
+        }
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("--------------------end        -------------------------------");
     }
 
 }
