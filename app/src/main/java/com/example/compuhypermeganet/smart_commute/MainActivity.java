@@ -266,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
                     listview2.addFooterView(footerview2);
                 }else{
                     TextView availability = view2.findViewById(R.id.availability_listview);
-                    availability.setText("no bike options");
                     availability.setVisibility(View.VISIBLE);
                 }
 

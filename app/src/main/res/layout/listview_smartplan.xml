@@ -18,7 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/availability_listview"
+        android:gravity="center"
         android:textSize="18sp"
+        android:text="No time saving possible with CallABike \n no bikes available"
         android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

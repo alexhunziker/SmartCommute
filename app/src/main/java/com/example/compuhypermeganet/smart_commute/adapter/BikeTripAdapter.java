@@ -103,8 +103,7 @@ public class BikeTripAdapter extends BaseAdapter {
                 vh.arriv_time.setText(bt.getArrivalTime().toString().substring(11, 16));
                 vh.arriv_address.setText(bt.getTo().getAddress());
                 vh.from.setText(bt.getTransferStation().getName());
-                vh.mode.setText("By Callabike " + bt.getAvailability() + " bikes available at " + bt.getTransferStation().getName()
-                                +" Duration " + (int) bt.getDuration() + " min Distance " + (int) bt.getDistance() + " m");
+                vh.mode.setText("By Callabike " + bt.getAvailability() + " bikes available\nDistance " + (int) bt.getDistance() + " m");
 
                 Log.d("visibility", "gone");
             }
