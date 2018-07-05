@@ -116,8 +116,8 @@ public class Trip {
                     origin_leg = new Station(origin_raw);
                     destination_leg = new Station(destination_raw);
                     leg = new Leg(origin_leg, destination_leg);
-                    leg.setArrival(destination_raw.getAttribute("time"));
-                    leg.setDeparture(origin_raw.getAttribute("time"));
+                    leg.setArrival(destination_raw.getAttribute("date"), destination_raw.getAttribute("time"));
+                    leg.setDeparture(destination_raw.getAttribute("date"), origin_raw.getAttribute("time"));
 //                    Log.d("datetime", leg.getArrival().toString());
                     type = leg_raw.getAttribute("type");
                     if (!type.equals("JNY")) {

@@ -44,18 +44,18 @@ public class Leg {
         return departure;
     }
 
-    public void setDeparture(String departure) throws ParseException {
-        DateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        this.departure = sdf.parse(departure);
+    public void setDeparture(String date, String time) throws ParseException {
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.departure = sdf.parse(date + " " + time);
     }
 
     public Date getArrival() {
         return arrival;
     }
 
-    public void setArrival(String arrival) throws ParseException {
-        DateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        this.arrival = sdf.parse(arrival);
+    public void setArrival(String date, String time) throws ParseException {
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.departure = sdf.parse(date + " " + time);
     }
 
     public String getMode() {
