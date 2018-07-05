@@ -14,9 +14,5 @@
     android:layout_marginRight="10dp"
     android:background="@color/colorInputBG"
   />
-    <include
-        android:id="@+id/smart_listview_button"
-        layout="@layout/smart_listview_button"
-        />
 
 </android.support.constraint.ConstraintLayout>

@@ -60,8 +60,6 @@ public class TripAdapter extends BaseAdapter {
             if (convertView == null) {
                 convertView = inflater.inflate(resource, null);
                 vh = new TripAdapter.ViewHolder();
-                view = convertView.findViewById(R.id.smart_listview_button);
-                view.setVisibility(View.GONE);
                 vh.arriv_address = (TextView) convertView.findViewById(R.id.arriv_address);
                 vh.arriv_time = (TextView) convertView.findViewById(R.id.arriv_time);
                 vh.depart_time = (TextView) convertView.findViewById(R.id.depart_time);
@@ -73,7 +71,6 @@ public class TripAdapter extends BaseAdapter {
                 vh = (TripAdapter.ViewHolder) convertView.getTag();
 
             }
-
                 vh.depart_time.setText(leg.getDeparture().toString().substring(11, 16));
                 vh.arriv_time.setText(leg.getArrival().toString().substring(11, 16));
                 vh.arriv_address.setText(leg.getTo().getName());
