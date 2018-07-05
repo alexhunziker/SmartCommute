@@ -12,6 +12,27 @@ public class Car {
     private String from;
     private String to;
 
+    public double getFromX() {
+        return fromX;
+    }
+
+    public double getToX() {
+        return toX;
+    }
+
+    public double getFromY() {
+        return fromY;
+    }
+
+    public double getToY() {
+        return toY;
+    }
+
+    private double fromX;
+    private double toX;
+    private double fromY;
+    private double toY,
+
     private static long MINUTE_MS = 60_000;
 
     public Date getDeparture(){
@@ -39,6 +60,10 @@ public class Car {
         this.to = to.getName();
         this.departure = new Date(departure.getTime() + 2*MINUTE_MS);
         double duration = OpenMap.getCarDuration(from.getX(), from.getY(), to.getX(), to.getY());
+        this.fromX = from.getX();
+        this.toX = to.getX();
+        this.fromY = from.getY();
+        this.toY = to.getY();
         long duration_ms = (long) (duration * 60_000);
         this.arrival = new Date(duration_ms + this.departure.getTime());
         Log.d("car trip",this.from+"*"+this.to+"**"+this.departure+"***"+this.getDuration());
