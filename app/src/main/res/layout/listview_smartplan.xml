@@ -14,5 +14,10 @@
     android:layout_marginRight="10dp"
     android:background="@color/colorInputBG"
   />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/availability_listview"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

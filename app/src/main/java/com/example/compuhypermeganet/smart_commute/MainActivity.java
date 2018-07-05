@@ -182,7 +182,15 @@ public class MainActivity extends AppCompatActivity {
                 TripAdapter adapter1 = new TripAdapter(MainActivity.this, R.layout.leg_item, trip);
                 BikeTripAdapter adapter2 = new BikeTripAdapter(MainActivity.this, R.layout.leg_item, trip);
                 listview1.setAdapter(adapter1);
-                listview2.setAdapter(adapter2);
+
+                //add footer view to listview1
+
+                View footerView1 = getLayoutInflater().from(MainActivity.this).inflate(R.layout.classics_listview_infobox,null);
+                TextView t1,t2,t3;
+                t1=footerView1.findViewById(R.id.info_classics);
+                t2=footerView1.findViewById(R.id.info_content);
+                t2.setText("Duration:"+(int)trip.getDuration()+"min\nTransfer:"+trip.getTransfers());
+                listview1.addFooterView(footerView1);
                 if(trip.getCarTrip()!=null){
                     //initial carplan
                     TextView depart_time = view3.findViewById(R.id.depart_time);
@@ -198,41 +206,48 @@ public class MainActivity extends AppCompatActivity {
                     //add a google map button
                 }
                 if(trip.getBikeTrip()!=null){
+                    listview2.setAdapter(adapter2);
 
+                    View footerview2 = getLayoutInflater().from(MainActivity.this).inflate(R.layout.smart_listview_button,null);
+                    TextView t4,t5,t6;
+                    Button b1,b2;
+                    b1=footerview2.findViewById(R.id.google);
+                    b2=footerview2.findViewById(R.id.callbike);
+                    t4=footerview2.findViewById(R.id.stathl);
+                    t5=footerview2.findViewById(R.id.bikestats);
+                    t6=footerview2.findViewById(R.id.availability);
+                    t5.setText("Distance: " + trip.getBikeTrip().getDistance() + "m\nDuration:" +
+                            trip.getBikeTrip().getDuration() + "min\nTime saving:" + trip.getBikeTrip().getTimeSaving() + "min");
+                    b1.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
 
-//                    Google = view2.findViewById(R.id.google);
-//                    Google.setOnClickListener(new View.OnClickListener() {
-//                                                  @Override
-//                                                  public void onClick(View v) {
-//
-////                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
-//                                                          String uri = "http://maps.google.com/maps?saddr=" +
-//                                                                  trip.getBikeTrip().getTransferStation().getX()+ "," +
-//                                                                  trip.getBikeTrip().getTransferStation().getY()+ "&daddr=" +
-//                                                                  trip.getBikeTrip().getTo().getLat()+ "," + trip.getBikeTrip().getTo().getLon()+"&travelmode=bicycling";
-//                                                          Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-//                                                          startActivity(intent);
-//                                                  }
-//                                              }
-//                    );
-//                    cab = view2.findViewById(R.id.callbike);
-//                    cab.setOnClickListener(new View.OnClickListener(){
-//                        @Override
-//                        public void onClick(View v){
-//                            Intent openCall = new Intent (Intent.ACTION_VIEW);
-//                            if(openCall==null){
-//                                Toast.makeText(MainActivity.this, "CallaBike is not installed", Toast.LENGTH_SHORT).show();
-//                            }else{
-//                                openCall.setData(Uri.parse(trip.getBikeTrip().getFrom().getReservationLink()));
-//                                startActivity(openCall);
-//                            }
-//                        }
-//                    });
-//                    listview2.addFooterView(view2.findViewById(R.id.smart_listview_button),null,true);
+//                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
+                                                  String uri = "http://maps.google.com/maps?saddr=" +
+                                                          trip.getBikeTrip().getTransferStation().getX()+ "," +
+                                                          trip.getBikeTrip().getTransferStation().getY()+ "&daddr=" +
+                                                          trip.getBikeTrip().getTo().getLat()+ "," + trip.getBikeTrip().getTo().getLon()+"&travelmode=bicycling";
+                                                  Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                                  MainActivity.this.startActivity(intent);
+                                              }
+                                          }
+                    );
+                    b2.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            Intent openCall = new Intent (Intent.ACTION_VIEW);
+                            if(openCall==null){
+                                Toast.makeText(MainActivity.this, "CallaBike is not installed", Toast.LENGTH_SHORT).show();
+                            }else{
+                                openCall.setData(Uri.parse(trip.getBikeTrip().getFrom().getReservationLink()));
+                                MainActivity.this.startActivity(openCall);
+                            }
+                        }
+                    });
+                    listview2.addFooterView(footerview2);
                 }else{
-                    view2.findViewById(R.id.google).setVisibility(View.GONE);
-                    view2.findViewById(R.id.callbike).setVisibility(View.GONE);
-                    TextView availability = view2.findViewById(R.id.availability);
+                    TextView availability = view2.findViewById(R.id.availability_listview);
+                    availability.setText("no bike options");
                     availability.setVisibility(View.VISIBLE);
                 }
 

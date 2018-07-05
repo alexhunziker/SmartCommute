@@ -35,7 +35,7 @@ public class TripAdapter extends BaseAdapter {
         this.trip = trip;
     }
     @Override
-    public int getCount() { return legList == null ? 0:legList.size()+1;}
+    public int getCount() { return legList == null ? 0:legList.size();}
 
     @Override
     public Leg getItem(int position) {return legList == null? null:legList.get(position);}
@@ -54,8 +54,7 @@ public class TripAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         TripAdapter.ViewHolder vh = null;
         View view;
-        Leg leg = null;
-        if(position < getCount()-1) leg = getItem(position);
+        Leg leg = getItem(position);
         if (leg != null) {
             if (convertView == null) {
                 convertView = inflater.inflate(resource, null);
@@ -65,7 +64,7 @@ public class TripAdapter extends BaseAdapter {
                 vh.depart_time = (TextView) convertView.findViewById(R.id.depart_time);
                 vh.from = (TextView) convertView.findViewById(R.id.from);
                 vh.mode = (TextView) convertView.findViewById(R.id.mode);
-
+                Log.d("position",position+"=="+legList.size());
                 convertView.setTag(vh);
             } else {
                 vh = (TripAdapter.ViewHolder) convertView.getTag();
@@ -81,14 +80,6 @@ public class TripAdapter extends BaseAdapter {
                     vh.mode.setText(leg.getLine() + " " + leg.getDirection());
                 }
                 Log.d("line", leg.getLine() + " " + leg.getDirection() + " " + leg.getMode());
-            }else{
-            if(convertView == null){
-                convertView = inflater.inflate(R.layout.classics_listview_infobox,null);
-                TextView t1,t2,t3;
-                t1=convertView.findViewById(R.id.info_classics);
-                t2=convertView.findViewById(R.id.info_content);
-                t2.setText("Duration:"+(int)trip.getDuration()+"min\nTransfer:"+trip.getTransfers());
-            }
         }
 
 
