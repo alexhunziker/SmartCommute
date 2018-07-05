@@ -12,6 +12,8 @@ public class Car {
     private String from;
     private String to;
 
+    private static long MINUTE_MS = 60_000;
+
     public Date getDeparture(){
         return this.departure;
     }
@@ -35,7 +37,7 @@ public class Car {
     public Car(Station from, Station to, Date departure){
         this.from = from.getName();
         this.to = to.getName();
-        this.departure = departure;
+        this.departure = new Date(departure.getTime() + 2*MINUTE_MS);
         double duration = OpenMap.getCarDuration(from.getX(), from.getY(), to.getX(), to.getY());
         long duration_ms = (long) (duration * 60_000);
         this.arrival = new Date(duration_ms + this.departure.getTime());

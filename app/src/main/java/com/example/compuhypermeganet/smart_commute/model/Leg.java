@@ -56,7 +56,7 @@ public class Leg {
 
     public void setArrival(String date, String time) throws ParseException {
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        this.departure = sdf.parse(date + " " + time);
+        this.arrival = sdf.parse(date + " " + time);
         System.out.println(date + " " + time + " = Departure: " + this.departure);
     }
 

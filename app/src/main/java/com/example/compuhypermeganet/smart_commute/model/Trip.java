@@ -186,6 +186,8 @@ public class Trip {
             }
         }
         // Generate Car Option
+        origin = this.getLegs().get(0).getFrom();
+        destination = this.getLegs().get(this.getLegs().size()-1).getFrom();
         this.carTrip = new Car(origin, destination, time);
         printTrip(this);
     }
