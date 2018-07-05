@@ -80,8 +80,9 @@ public class Trip {
         this.transfers = 0;
     }
 
-    private long dstCorr(){
-        if (TimeZone.getDefault().inDaylightTime( new Date() )){
+    // Adjust search time to simplified time of the RMV class.
+    private long dstCorr(int i){
+        if (i==0  && TimeZone.getDefault().inDaylightTime( new Date() )){
             System.out.print("DST Fix active");
             return 60*MINUTE_MS;
         } else {
@@ -169,7 +170,7 @@ public class Trip {
             }
             prevArrTime = new Date(prevArrTime.getTime() + 2*MINUTE_MS);
             // Modulo by day (quickfix for wrong date in legs)
-            remCommuteTime = (this.getArrivalTime().getTime() - ((prevArrTime.getTime() + dstCorr()) % DAY_MS)) / MINUTE_MS;
+            remCommuteTime = (this.getArrivalTime().getTime() - ((prevArrTime.getTime() + dstCorr(i)) % DAY_MS)) / MINUTE_MS;
             potBikeTrip.setTimeSaving(remCommuteTime - potBikeTrip.getDuration() - 2);
             System.out.println("Info: Bike option " + potBikeTrip.getDuration() + "vs remaining commute (incl Waittime) " + remCommuteTime);
             if (potBikeTrip.getTimeSaving() > 0) {
@@ -185,6 +186,8 @@ public class Trip {
             }
         }
         // Generate Car Option
+        origin = this.getLegs().get(0).getFrom();
+        destination = this.getLegs().get(this.getTransfers()-1).getFrom();
         this.carTrip = new Car(origin, destination, time);
         printTrip(this);
     }
