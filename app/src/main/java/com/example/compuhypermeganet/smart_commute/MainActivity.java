@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private Trip trip;
     private Station from;
     private Station to;
+    public static TextView bikeStats;
     public static View view1,view2,view3;
     public static ListView listview1,listview2;
     public static Button Google,cab;
@@ -197,7 +198,10 @@ public class MainActivity extends AppCompatActivity {
                     //add a google map button
                 }
                 if(trip.getBikeTrip()!=null){
-                    trip.getBikeTrip().getDuration();
+
+                    bikeStats = view2.findViewById(R.id.bikestats);
+                    bikeStats.setText("Distance: " + trip.getBikeTrip().getDistance() + "m\nDuration:" +
+                            trip.getBikeTrip().getDuration() + "min\nTime saving:" + trip.getBikeTrip().getTimeSaving() + "min");
                     Google = view2.findViewById(R.id.google);
                     Google.setOnClickListener(new View.OnClickListener() {
                                                   @Override
@@ -205,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
                                                           String uri = "http://maps.google.com/maps?saddr=" +
-                                                                  from.getX()+ "," +
+                                                                  trip.getBikeTrip().getTransferStation().getX()+ "," +
                                                                   trip.getBikeTrip().getTransferStation().getY()+ "&daddr=" +
                                                                   trip.getBikeTrip().getTo().getLat()+ "," + trip.getBikeTrip().getTo().getLon()+"&travelmode=bicycling";
                                                           Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
@@ -226,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
+//                    listview2.addFooterView(view2.findViewById(R.id.smart_listview_button),null,true);
                 }else{
                     view2.findViewById(R.id.google).setVisibility(View.GONE);
                     view2.findViewById(R.id.callbike).setVisibility(View.GONE);
