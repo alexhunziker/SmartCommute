@@ -108,8 +108,6 @@ public class Testing {
             System.out.println("No Bike Trip in this trip");
         }
         System.out.println("--------------------------------------------------------------");
-        Car ct = t.getCarTrip();
-        System.out.println(ct.getFrom() + " at " + ct.getDeparture() + ", to " + ct.getTo() + " at " + ct.getArrival() + ". Duration: " + ct.getDuration());
         System.out.println("--------------------end        -------------------------------");
     }
 
