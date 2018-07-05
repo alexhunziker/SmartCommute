@@ -55,12 +55,12 @@ public class address extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Toast.makeText(ShowAddressActivity.this,"onTextChanged ",Toast.LENGTH_SHORT).show();
             }
-            private Timer timer=new Timer();
-            private final long DELAY = 500; // milliseconds
+
             @Override
             public void afterTextChanged(Editable s) {
                 //Toast.makeText(ShowAddressActivity.this,"afterTextChanged ",Toast.LENGTH_SHORT).show();
-                new address.CallRMV().execute(editText.getText().toString());
+                if(editText.getText().toString().length()>5){
+                new address.CallRMV().execute(editText.getText().toString());}
             }
         };
 

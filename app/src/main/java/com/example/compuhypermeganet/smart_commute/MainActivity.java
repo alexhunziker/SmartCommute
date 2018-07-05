@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private Trip trip;
     private Station from;
     private Station to;
-    public static View view1,view2;
+    public static View view1,view2,view3;
     public static ListView listview1,listview2;
     public static Button Google,cab;
     boolean first = true;
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         view1 = getLayoutInflater().inflate(R.layout.activity_navigation, null);
         view2 = getLayoutInflater().inflate(R.layout.listview_smartplan, null);
+        view3 = getLayoutInflater().inflate(R.layout.carplan,null);
 
         listview1 = (ListView) view1.findViewById(R.id.plan);
         listview2 = view2.findViewById(R.id.smartplan);
@@ -181,6 +182,20 @@ public class MainActivity extends AppCompatActivity {
                 BikeTripAdapter adapter2 = new BikeTripAdapter(MainActivity.this, R.layout.leg_item, trip);
                 listview1.setAdapter(adapter1);
                 listview2.setAdapter(adapter2);
+                if(trip.getCarTrip()!=null){
+                    //initial carplan
+                    TextView depart_time = view3.findViewById(R.id.depart_time);
+                    TextView depart_address = view3.findViewById(R.id.from);
+                    TextView mode = view3.findViewById(R.id.mode);
+                    TextView arrive_time = view3.findViewById(R.id.arriv_time);
+                    TextView arrive_address = view3.findViewById(R.id.arriv_address);
+                    depart_time.setText(trip.getCarTrip().getDeparture().toString().substring(11, 16));
+                    arrive_time.setText(trip.getCarTrip().getArrival().toString().substring(11,16));
+                    depart_address.setText(trip.getCarTrip().getFrom());
+                    arrive_address.setText(trip.getCarTrip().getTo());
+                    mode.setText(trip.getCarTrip().getDuration()+"minutes");
+                    //add a google map button
+                }
                 if(trip.getBikeTrip()!=null){
                     trip.getBikeTrip().getDuration();
                     Google = view2.findViewById(R.id.google);
@@ -190,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
                                                           String uri = "http://maps.google.com/maps?saddr=" +
-                                                                  trip.getBikeTrip().getTransferStation().getX()+ "," +
+                                                                  from.getX()+ "," +
                                                                   trip.getBikeTrip().getTransferStation().getY()+ "&daddr=" +
                                                                   trip.getBikeTrip().getTo().getLat()+ "," + trip.getBikeTrip().getTo().getLon()+"&travelmode=bicycling";
                                                           Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
@@ -216,8 +231,6 @@ public class MainActivity extends AppCompatActivity {
                     view2.findViewById(R.id.callbike).setVisibility(View.GONE);
                     TextView availability = view2.findViewById(R.id.availability);
                     availability.setVisibility(View.VISIBLE);
-
-
                 }
 
             }
@@ -298,12 +311,13 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
 
             position = getArguments() != null ? getArguments().getInt(ARG_SECTION_NUMBER) : 1;
+
             if(position==1){
                 return view1;
             }
-            else{
+            else if(position == 2){
                 return view2;
-            }
+            }else{return view3;}
 
         }
 
@@ -394,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         /**
-         * 画圆
+         * draw circle
          * @param x
          * @param y
          * @param radius

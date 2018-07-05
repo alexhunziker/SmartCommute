@@ -1,5 +1,7 @@
 package com.example.compuhypermeganet.smart_commute.model;
 
+import android.util.Log;
+
 import com.example.compuhypermeganet.smart_commute.API.OpenMap;
 
 import java.util.Date;
@@ -37,5 +39,6 @@ public class Car {
         double duration = OpenMap.getCarDuration(from.getX(), from.getY(), to.getX(), to.getY());
         long duration_ms = (long) (duration * 60_000);
         this.arrival = new Date(duration_ms + this.departure.getTime());
+        Log.d("car trip",this.from+"*"+this.to+"**"+this.departure+"***"+this.getDuration());
     }
 }
