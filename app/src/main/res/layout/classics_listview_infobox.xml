@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/info_classics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding = "10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorInputBG"
+        android:textStyle="bold"
+        android:textColor="@color/colorText"
+        android:text="Your Public Transport Trip:" />
+
+    <TextView
+        android:id="@+id/info_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingLeft = "10dp"
+        android:paddingBottom = "10dp"
+        android:paddingTop = "0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorInputBG"
+        android:textColor="@color/colorText"
+        android:text="BIKE STATS GO HERE" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

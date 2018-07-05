@@ -199,9 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(trip.getBikeTrip()!=null){
 
-//                    bikeStats = view2.findViewById(R.id.bikestats);
-//                    bikeStats.setText("Distance: " + trip.getBikeTrip().getDistance() + "m\nDuration:" +
-//                            trip.getBikeTrip().getDuration() + "min\nTime saving:" + trip.getBikeTrip().getTimeSaving() + "min");
+
 //                    Google = view2.findViewById(R.id.google);
 //                    Google.setOnClickListener(new View.OnClickListener() {
 //                                                  @Override

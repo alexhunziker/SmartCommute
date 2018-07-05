@@ -83,41 +83,11 @@ public class TripAdapter extends BaseAdapter {
                 Log.d("line", leg.getLine() + " " + leg.getDirection() + " " + leg.getMode());
             }else{
             if(convertView == null){
-                convertView = inflater.inflate(R.layout.smart_listview_button,null);
+                convertView = inflater.inflate(R.layout.classics_listview_infobox,null);
                 TextView t1,t2,t3;
-                Button b1,b2;
-                b1=convertView.findViewById(R.id.google);
-                b2=convertView.findViewById(R.id.callbike);
-                t1=convertView.findViewById(R.id.stathl);
-                t2=convertView.findViewById(R.id.bikestats);
-                t3=convertView.findViewById(R.id.availability);
-                b1.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
-
-//                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
-                                              String uri = "http://maps.google.com/maps?saddr=" +
-                                                      trip.getBikeTrip().getTransferStation().getX()+ "," +
-                                                      trip.getBikeTrip().getTransferStation().getY()+ "&daddr=" +
-                                                      trip.getBikeTrip().getTo().getLat()+ "," + trip.getBikeTrip().getTo().getLon()+"&travelmode=bicycling";
-                                              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                              context.startActivity(intent);
-                                          }
-                                      }
-                );
-                b2.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        Intent openCall = new Intent (Intent.ACTION_VIEW);
-                        if(openCall==null){
-                            Toast.makeText(context, "CallaBike is not installed", Toast.LENGTH_SHORT).show();
-                        }else{
-                            openCall.setData(Uri.parse(trip.getBikeTrip().getFrom().getReservationLink()));
-                            context.startActivity(openCall);
-                        }
-                    }
-                });
-
+                t1=convertView.findViewById(R.id.info_classics);
+                t2=convertView.findViewById(R.id.info_content);
+                t2.setText("Duration:"+(int)trip.getDuration()+"min\nTransfer:"+trip.getTransfers());
             }
         }
 

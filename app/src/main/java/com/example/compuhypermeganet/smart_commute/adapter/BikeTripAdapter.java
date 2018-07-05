@@ -115,6 +115,8 @@ public class BikeTripAdapter extends BaseAdapter {
                 t1=convertView.findViewById(R.id.stathl);
                 t2=convertView.findViewById(R.id.bikestats);
                 t3=convertView.findViewById(R.id.availability);
+                t2.setText("Distance: " + trip.getBikeTrip().getDistance() + "m\nDuration:" +
+                        trip.getBikeTrip().getDuration() + "min\nTime saving:" + trip.getBikeTrip().getTimeSaving() + "min");
                 b1.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
