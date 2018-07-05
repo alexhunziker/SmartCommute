@@ -92,11 +92,6 @@
                             android:textSize="20sp"
                             android:textStyle="bold" />
                 </LinearLayout>
-        <include
-            layout="@layout/smart_listview_button"
-            android:visibility="gone"
-            android:id="@+id/smart_listview_button"
-            />
         </LinearLayout>
 
 
