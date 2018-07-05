@@ -31,7 +31,7 @@ public class Car {
     private double fromX;
     private double toX;
     private double fromY;
-    private double toY,
+    private double toY;
 
     private static long MINUTE_MS = 60_000;
 

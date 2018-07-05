@@ -16,10 +16,10 @@
 
                         <TextView
                             android:id="@+id/depart_time"
-                            android:layout_width="56dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
-                            android:text="14:59 14:59"
+                            android:text="14:59"
                             android:textColor="@color/colorText"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -36,23 +36,32 @@
                 </LinearLayout>
 
 
-                <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="48px"
+                    android:layout_height="48px"
+                    android:id="@+id/icons"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/bicycle" />
+
+                <TextView
+                    android:id="@+id/mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="U4 in Richtung Bockenheimer Warter"
+                    android:textColor="@color/richtung"
+                    android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="100dp"
-                            android:text="U4 in Richtung Bockenheimer Warter"
-                            android:textColor="@color/richtung"
-                            android:textSize="18sp"
-                            />
-
-                </LinearLayout>
+        </LinearLayout>
 
                 <!--<LinearLayout-->
                 <!--android:id="@+id/tip_window"-->

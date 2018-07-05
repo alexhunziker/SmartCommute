@@ -45,6 +45,7 @@ import android.view.ViewGroup;
 
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -203,7 +204,25 @@ public class MainActivity extends AppCompatActivity {
                     depart_address.setText(trip.getCarTrip().getFrom());
                     arrive_address.setText(trip.getCarTrip().getTo());
                     mode.setText(trip.getCarTrip().getDuration()+"minutes");
+                    ImageView icons = view3.findViewById(R.id.icons);
+                    icons.setImageResource(R.drawable.car);
+
                     //add a google map button
+                    Button google_car = view3.findViewById(R.id.google2);
+                    google_car.setOnClickListener(new View.OnClickListener() {
+                                                       @Override
+                                                       public void onClick(View v) {
+
+//                                                  Log.d("Transfer().getX()",trip.getBikeTrip().getTransferStation().getX());
+                                                           String uri = "http://maps.google.com/maps?saddr=" +
+                                                                  trip.getCarTrip().getFromX()+ "," +
+                                                                   trip.getCarTrip().getFromY()+ "&daddr=" +
+                                                                   trip.getCarTrip().getToX()+ "," + trip.getCarTrip().getToY()+"&travelmode=driving";
+                                                           Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                                           MainActivity.this.startActivity(intent);
+                                                       }
+                                                   }
+                    );
                 }
                 if(trip.getBikeTrip()!=null){
                     listview2.setAdapter(adapter2);

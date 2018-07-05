@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.compuhypermeganet.smart_commute.R;
@@ -80,11 +81,21 @@ public class BikeTripAdapter extends BaseAdapter {
                 vh.arriv_time.setText(leg.getArrival().toString().substring(11, 16));
                 vh.arriv_address.setText(leg.getTo().getName());
                 vh.from.setText(leg.getFrom().getName());
-                if(leg.getLine()!=null){
+                ImageView icons = convertView.findViewById(R.id.icons);
+                if (leg.getLine() == null) {
+                    vh.mode.setText(leg.getMode());
+                    icons.setImageResource(R.drawable.walk);
+                } else {
                     vh.mode.setText(leg.getLine() + " " + leg.getDirection());
-                    Log.d("line",leg.getLine() + " " + leg.getDirection());
+                    if(leg.getLine().contains("U")){
+                        icons.setImageResource(R.drawable.ubahn);
+                    }else if(leg.getLine().contains("S")){
+                        icons.setImageResource(R.drawable.sbahn);
+                    }else{
+                        icons.setImageResource(R.drawable.train);
+                    }
                 }
-                Log.d("visibility", "show");
+                Log.d("line", leg.getLine() + " " + leg.getDirection() + " " + leg.getMode());
 
             }else{
                 BikeTrip bt = trip.getBikeTrip();
@@ -94,6 +105,7 @@ public class BikeTripAdapter extends BaseAdapter {
                 vh.from.setText(bt.getTransferStation().getName());
                 vh.mode.setText("By Callabike " + bt.getAvailability() + " bikes available at " + bt.getTransferStation().getName()
                                 +" Duration " + (int) bt.getDuration() + " min Distance " + (int) bt.getDistance() + " m");
+
                 Log.d("visibility", "gone");
             }
 
