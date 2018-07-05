@@ -4,19 +4,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
     <include
         android:id="@+id/carplan"
+        android:background="@color/colorInputBG"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         layout="@layout/leg_item"
         />
+
     <Button
         android:id="@+id/google2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Google Map"
+        android:background="@color/colorPrimary"
+        android:text="View on Google Maps"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"
         android:textColor="@color/colorInputBG"
-        android:background="@color/colorPrimaryDark"
         app:layout_constraintTop_toBottomOf="@+id/carplan"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="30dp" />
 
 </android.support.constraint.ConstraintLayout>
