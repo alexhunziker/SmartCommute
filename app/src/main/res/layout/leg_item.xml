@@ -21,7 +21,7 @@
                             android:layout_marginLeft="16dp"
                             android:text="14:59"
                             android:textColor="@color/colorText"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -31,7 +31,7 @@
                             android:text="Frankfurt Hbf(tief)"
                             android:textColor="@color/colorText"
                             android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
                 </LinearLayout>
 
@@ -46,7 +46,7 @@
                     android:layout_width="48px"
                     android:layout_height="48px"
                     android:id="@+id/icons"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="45dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/bicycle" />
 
@@ -55,11 +55,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:text="U4 in Richtung Bockenheimer Warter"
                     android:textColor="@color/richtung"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -87,7 +87,7 @@
                             android:layout_marginLeft="16dp"
                             android:text="15:02"
                             android:textColor="@color/colorText"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -99,7 +99,7 @@
                             android:layout_toRightOf="@id/time"
                             android:text="Frankfurt Hbf(tief)"
                             android:textColor="@color/colorText"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
                 </LinearLayout>
         </LinearLayout>
