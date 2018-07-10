@@ -19,7 +19,7 @@
         android:background="@color/colorInputBG"
         android:textStyle="bold"
         android:textColor="@color/colorText"
-        android:text="Your Public Transport Trip:" />
+        android:text="Your Public Transport Trip: " />
 
     <TextView
         android:id="@+id/info_content"

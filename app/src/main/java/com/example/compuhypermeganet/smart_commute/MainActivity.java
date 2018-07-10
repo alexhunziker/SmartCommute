@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView t1,t2,t3;
                 t1=footerView1.findViewById(R.id.info_classics);
                 t2=footerView1.findViewById(R.id.info_content);
-                t2.setText("Duration:"+(int)trip.getDuration()+"min\nTransfer:"+trip.getTransfers());
+                t2.setText("Duration: "+(int)trip.getDuration()+"min\nTransfer: "+trip.getTransfers());
                 listview1.addFooterView(footerView1);
                 if(trip.getCarTrip()!=null){
                     //initial carplan
@@ -235,8 +235,8 @@ public class MainActivity extends AppCompatActivity {
                     t4=footerview2.findViewById(R.id.stathl);
                     t5=footerview2.findViewById(R.id.bikestats);
                     t6=footerview2.findViewById(R.id.availability);
-                    t5.setText("Distance: " + trip.getBikeTrip().getDistance() + "m\nDuration:" +
-                            trip.getBikeTrip().getDuration() + "min\nTime saving:" + trip.getBikeTrip().getTimeSaving() + "min");
+                    t5.setText("Distance: " + (int)trip.getBikeTrip().getDistance() + "m\nDuration: " +
+                            (int)trip.getBikeTrip().getDuration() + "min\nTime saving: " + (int)trip.getBikeTrip().getTimeSaving() + "min");
                     b1.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
