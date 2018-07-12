@@ -6,7 +6,7 @@ SmartCommute is an Android app that provides trip plans (in the RMV area, German
 
 In Smart cities, different modes of transport such as trams, busses, underground, bikes, cars, boats are combined. This allows user to get more efficiently from A to B. Whilst public transport and bike sharing infrastructure exist in many cities, no Application can plan trips combining those two modes of transports. Yet many customers would find such a functionality useful. SmartCommute aims to solve this issue. 
 
-![Search Screen](docs/search_screen.png) ![Result Screen](docs/result_screen.png)
+![Search Screen](docs/search_screen.jpg) ![Result Screen](docs/result_screen.jpg)
 
 ```
 API Keys: 
